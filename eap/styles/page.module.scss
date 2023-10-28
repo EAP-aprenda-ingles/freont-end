@@ -1,0 +1,63 @@
+@import "./globals.scss";
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 1.5rem;
+    min-height: 100vh;
+
+    .logoArea {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: $mainFont;
+
+        h1 {
+            font-size: 45px;
+        }
+    }
+
+    form {
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .inputGroup {
+            margin-bottom: 20px;
+            position: relative;
+            button {
+                background-color: $primaryColor;
+                color: white;
+                border: 0;
+                width: 100%;
+                padding: 10px 0;
+                border-radius: 5px;
+                font-weight: bold;
+                transition: all ease 0.2s;
+                cursor: pointer;
+                font-size: 18px;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+        }
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+
+        a {
+            transition: all ease 0.2s;
+            &:hover {
+                transform: translateY(-5px);
+            }
+        }
+    }
+}
