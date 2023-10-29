@@ -21,28 +21,47 @@
     }
 
     form {
-        height: 300px;
+        height: 500px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
 
-        .inputGroup {
+        .inputsArea {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .buttonsArea {
             margin-bottom: 20px;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             button {
-                background-color: $primaryColor;
-                color: white;
-                border: 0;
+                height: 55px;
                 width: 100%;
+                max-width: 290px;
+                border: 0;
                 padding: 10px 0;
-                border-radius: 5px;
+                border-radius: 12px;
                 font-weight: bold;
                 transition: all ease 0.2s;
                 cursor: pointer;
+                margin-bottom: 20px;
                 font-size: 18px;
                 &:hover {
                     transform: translateY(-5px);
                 }
+            }
+            .button {
+                background-color: $primaryColor;
+                color: white;
+            }
+
+            .reverseButton {
+                background-color: $backgroundColor;
+                border: 2px solid $primaryColor;
             }
         }
     }

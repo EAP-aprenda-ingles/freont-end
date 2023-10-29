@@ -29,31 +29,36 @@ export default function Login() {
         <Image src={logo} alt="logo" width={170} height={170} quality={100} />
       </div>
       <form onSubmit={handleLogin}>
-        <DefaultInput
-          type="text"
-          name="email"
-          id="email"
-          required
-          label="E-mail"
-        />
-        <DefaultInput
-          type="password"
-          name="password"
-          id="password"
-          required
-          label="Senha"
-        />
+        <div className={styles.inputsArea}>
+          <DefaultInput
+            type="text"
+            name="email"
+            id="email"
+            required
+            label="E-mail"
+          />
+          <DefaultInput
+            type="password"
+            name="password"
+            id="password"
+            required
+            label="Senha"
+          />
+        </div>
 
-        <div className={styles.inputGroup}>
-          <button type="submit">Entrar</button>
+        <div className={styles.buttonsArea}>
+          <button type="submit" className={styles.reverseButton}>
+            Login
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => router.push("/register")}
+            type="submit"
+          >
+            Criar Conta
+          </button>
         </div>
       </form>
-      <div>
-        <div className={styles.links}>
-          <Link href="/register">Não possui conta? Criar conta</Link>
-          <Link href="/forgot-password">Esqueci minha senha</Link>
-        </div>
-      </div>
     </main>
   );
 }
