@@ -1,0 +1,50 @@
+import React from "react";
+import Select from "react-select";
+
+const customStyles = {
+  control: (provided: any) => ({
+    ...provided,
+    border: "1px solid #171717",
+    borderRadius: "8px",
+    backgroundColor: "transparent",
+    marginBottom: "20px",
+  }),
+  multiValueLabel: (provided: any) => ({
+    ...provided,
+    color: "#171717",
+  }),
+  option: (provided: any) => ({
+    ...provided,
+    color: "#171717",
+  }),
+};
+
+const DefaultSelect = ({
+  options,
+  placeholder,
+  isMulti,
+}: {
+  options: any[];
+  placeholder: string;
+  isMulti: boolean;
+}) => {
+  const preferenceOptions = [];
+  for (const preference of options) {
+    preferenceOptions.push({
+      value: preference.id,
+      label: preference.name,
+    });
+  }
+  return (
+    <div style={{ width: "100%" }}>
+      <Select
+        placeholder={placeholder}
+        options={preferenceOptions}
+        isMulti={isMulti}
+        styles={customStyles}
+      />
+    </div>
+  );
+};
+
+export default DefaultSelect;

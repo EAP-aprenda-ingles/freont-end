@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import logo from "../../public/logo-sem-fundo.png";
-import styles from "../../styles/page.module.scss";
+import styles from "../../styles/Pages/page.module.scss";
 import { api } from "./api";
 import { salvarTokenNoCookie } from "./api/functions";
 

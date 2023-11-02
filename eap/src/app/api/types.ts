@@ -1,6 +1,12 @@
-export type classes_type = {
+export type school_type = {
     id: number,
-    className: string
+    name: string
+}
+
+export type prefernce_type = {
+    id: number,
+    name: string,
+    icon: string
 }
 
 export type JWTToken = {

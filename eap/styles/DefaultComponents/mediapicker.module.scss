@@ -1,0 +1,21 @@
+@import "../globals.scss";
+.mediaPicker {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    input {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    img {
+        aspect-ratio: "1/1";
+        width: "63px";
+        height: "63px";
+        border-radius: "50%";
+        object-fit: "cover";
+        border: "1px solid black";
+    }
+}
