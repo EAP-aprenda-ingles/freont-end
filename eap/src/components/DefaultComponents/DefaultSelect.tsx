@@ -23,10 +23,14 @@ const DefaultSelect = ({
   options,
   placeholder,
   isMulti,
+  name,
+  onChange,
 }: {
   options: any[];
   placeholder: string;
   isMulti: boolean;
+  name: string;
+  onChange: (e: any) => void;
 }) => {
   const preferenceOptions = [];
   for (const preference of options) {
@@ -42,6 +46,8 @@ const DefaultSelect = ({
         options={preferenceOptions}
         isMulti={isMulti}
         styles={customStyles}
+        name={name}
+        onChange={onChange}
       />
     </div>
   );
