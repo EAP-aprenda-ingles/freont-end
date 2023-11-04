@@ -1,0 +1,20 @@
+@import "../globals.scss";
+.footer {
+    bottom: 0;
+    position: fixed;
+    background-color: #d0d0d0;
+    backdrop-filter: blur(2px);
+    border-top: 2px solid #171717;
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+
+    .profilePic {
+        img {
+            border-radius: 50%;
+            aspect-ratio: "1/1";
+        }
+    }
+}
