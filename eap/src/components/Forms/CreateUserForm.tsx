@@ -2,6 +2,7 @@
 import { api } from "@/app/api";
 import { salvarTokenNoCookie } from "@/app/api/functions";
 import { prefernce_type, school_type } from "@/app/api/types";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -47,8 +48,10 @@ export default function CreateUserForm({
       preferences: userPreferences,
       school: userSchool,
       description: formData.get("description"),
+      isPublic: formData.get("isPublic") == null ? true : false,
     });
     const { token } = response.data;
+    console.log(token);
     if (salvarTokenNoCookie(token)) {
       router.push("/homepage");
     }
@@ -87,6 +90,27 @@ export default function CreateUserForm({
             <Camera /> Adicionar imagem de perfil
           </label>
         </div>
+        <FormControlLabel
+          style={{
+            fontFamily: "__Montserrat_Fallback_f4d50f",
+            fontSize: "15px",
+          }}
+          sx={{
+            fontFamily: "__Montserrat_Fallback_f4d50f",
+            fontSize: "15px",
+          }}
+          control={
+            <Checkbox
+              name="isPublic"
+              sx={{
+                "&.Mui-checked": {
+                  color: "#171717",
+                },
+              }}
+            />
+          }
+          label="Manter minha conta privada"
+        />
         <DefaultTextarea name="description" label="Descrição" rows={10} />
         <button type="submit">Criar Conta</button>
       </div>
