@@ -22,7 +22,7 @@ export function ArticleMediaPicker({
     <div className={styles.mediaPicker}>
       <input
         type="file"
-        name="coverUrl"
+        name="mediaImage"
         id="mediaImage"
         accept="image/*"
         onChange={onFileSelected}

@@ -24,6 +24,11 @@ export type JWTToken = {
     iat: number,
 }
 
+export type select_type = {
+    label: string;
+    value: number;
+  };
+
 export type post_type = {
     id: string,
     coverUrl: string,

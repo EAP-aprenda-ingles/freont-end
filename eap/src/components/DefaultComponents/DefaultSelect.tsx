@@ -13,9 +13,14 @@ const customStyles = {
     ...provided,
     color: "#171717",
   }),
-  option: (provided: any) => ({
+  option: (provided: any, state: any) => ({
     ...provided,
-    color: "#171717",
+    color: state.isSelected ? "#ffffff" : "#171717",
+    backgroundColor: state.isSelected
+      ? "#171717"
+      : state.isFocused
+      ? "#17171750"
+      : "#ffffff",
   }),
 };
 
