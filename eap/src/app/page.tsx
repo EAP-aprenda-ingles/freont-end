@@ -19,8 +19,10 @@ export default function Login() {
       password: formData.get("password"),
     });
     const { token } = response.data;
-    if (salvarTokenNoCookie(token)) {
-      router.push("/homepage");
+    if (token) {
+      if (salvarTokenNoCookie(token)) {
+        router.push("/homepage");
+      }
     }
   };
   return (
