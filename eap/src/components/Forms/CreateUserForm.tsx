@@ -51,6 +51,7 @@ export default function CreateUserForm({
       isPublic: formData.get("isPublic") == null ? true : false,
     });
     const { token } = response.data;
+    console.log(token);
     if (salvarTokenNoCookie(token)) {
       router.push("/homepage");
     }

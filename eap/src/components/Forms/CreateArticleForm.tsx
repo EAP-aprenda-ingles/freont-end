@@ -43,10 +43,10 @@ export default function CreateArticleForm({
     }
     const token = Cookie.get("user_token");
     await api.post(
-      "/files",
+      "/article",
       {
         coverUrl,
-        fileImage,
+        articleCover: fileImage,
         title: formData.get("title"),
         description: formData.get("description"),
         category: articleCategory,
@@ -57,7 +57,7 @@ export default function CreateArticleForm({
         },
       }
     );
-    router.push("/");
+    router.push("/homepage");
   };
   return (
     <form onSubmit={handleCreateFile} className={styles.form}>
