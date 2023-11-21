@@ -1,4 +1,5 @@
 import Footer from "@/components/DefaultComponents/Footer";
+import Feed from "@/components/UtilComponents/Feed";
 import { Mailbox } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +22,7 @@ export default function homepage() {
           <Mailbox height={40} width={40} />
         </Link>
       </div>
+      <Feed />
       <Footer />
     </main>
   );

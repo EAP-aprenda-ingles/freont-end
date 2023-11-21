@@ -29,16 +29,24 @@ export type select_type = {
     value: number;
   };
 
-export type post_type = {
+export type article_type = {
     id: string,
     coverUrl: string,
+    articleCover: string,
+    description: string,
     content: string,
+    title: string,
+    category: number,
     createdAt: Date,
-    user: {
-        userClass: string,
+    author: {
+        id: string,
         name: string,
+        createdAt: Date,
         profilePic: string,
-        id: string
+        School: {
+            id: number,
+            name: string,
+        };
     },
     likes: number,
     comments: number,
