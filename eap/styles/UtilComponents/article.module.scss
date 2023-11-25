@@ -72,4 +72,15 @@
             }
         }
     }
+    .userInteractions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        height: 24px;
+        img {
+            transition: all ease 0.2s;
+        }
+    }
 }

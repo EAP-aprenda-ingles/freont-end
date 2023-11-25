@@ -51,7 +51,8 @@ export type article_type = {
     likes: number,
     comments: number,
     likedByUser: boolean,
-    fullComments: comment_type[]
+    fullComments: comment_type[],
+    interactions: number
 }
 
 export type comment_type = {

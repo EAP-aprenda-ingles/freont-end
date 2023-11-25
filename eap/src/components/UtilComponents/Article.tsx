@@ -11,12 +11,12 @@ import { useState } from "react";
 import comment from "../../../public/images/posts/comment.svg";
 import activeLike from "../../../public/images/posts/like-active.svg";
 import unactiveLike from "../../../public/images/posts/like-unactive.svg";
+import user from "../../../public/images/posts/user 1.svg";
 import styles from "../../../styles/UtilComponents/article.module.scss";
 
 dayjs.locale(ptBr);
 
 export default function Article({ post }: { post: article_type }) {
-  console.log(post);
   const router = useRouter();
   const [liked, setLiked] = useState<boolean>(post.likedByUser);
   const [serverPost, setServerPost] = useState<article_type>(post);
@@ -99,6 +99,10 @@ export default function Article({ post }: { post: article_type }) {
           <Link href={`/post/comments/${serverPost.id}`}>
             <span>{post.comments}</span>
           </Link>
+        </div>
+        <div className={styles.userInteractions}>
+          <Image src={user} alt="user-image" quality={100} />
+          <span>{post.interactions}</span>
         </div>
       </div>
       <div
