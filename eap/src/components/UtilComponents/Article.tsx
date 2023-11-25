@@ -62,6 +62,9 @@ export default function Article({ post }: { post: article_type }) {
           </div>
         </Link>
       </div>
+      <span className={styles.postTitle}>
+        <h3>{serverPost.title}</h3>
+      </span>
       <span className={styles.postDescription}>
         <span>{serverPost.description}</span>
       </span>

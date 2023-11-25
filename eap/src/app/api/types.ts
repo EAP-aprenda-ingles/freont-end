@@ -71,7 +71,7 @@ export type user_type = {
     id: string,
     preferences: {
         id: number,
-        title: string,
+        name: string,
         icon: string
     }[],
     profilePic: string,
@@ -80,12 +80,13 @@ export type user_type = {
     name: string,
     description: string,
     followedByUser: boolean,
-    posts: {
+    articles: {
         coverUrl: string,
-        id: string
+        id: string,
+        articleCover: string
     }[],
-    className: { 
-        id: number, className: string 
+    school: { 
+        id: number, name: string 
     }
 }
 export type user_to_update_type = {

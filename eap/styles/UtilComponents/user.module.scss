@@ -1,0 +1,128 @@
+@import "../globals.scss";
+.main {
+    display: flex;
+    flex-direction: column;
+    font-family: $mainFont;
+    gap: 15px;
+
+    .topPart {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .userData {
+            display: flex;
+            width: 100%;
+            // justify-content: space-between;
+            align-items: flex-start;
+
+            img {
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid $primaryColor;
+            }
+
+            .userInfos {
+                margin-left: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+                height: 60px;
+
+                .userName {
+                    font-weight: bold;
+                }
+
+                .userSchool {
+                    font-size: 11px;
+                }
+            }
+
+            .userUtilData {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+        .communityData {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .userPreferences {
+            h3 {
+                margin: 10px 0;
+                font-size: 16px;
+            }
+            .preferencesList {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+        }
+        .userActions {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+    .postsList {
+        width: 100%;
+        .postsArea {
+            margin-bottom: 40px;
+            // display: flex;
+            // // flex-direction: column;
+            // flex-wrap: wrap;
+            // align-items: center;
+            // justify-content: center;
+            // gap: 5px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+
+            a {
+                // flex-basis: calc(100% / 3);
+                // flex: 1 1;
+
+                img,
+                video {
+                    aspect-ratio: 3/4;
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .videoBox {
+                    display: flex;
+                    height: 100%;
+                    justify-content: flex-end;
+                    align-items: flex-end;
+                    video {
+                        position: relative;
+                    }
+                    div {
+                        position: absolute;
+                        background-color: #00000066;
+                        backdrop-filter: blur(3px);
+                        height: fit-content;
+                        width: fit-content;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 2px;
+                        margin: 5px;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+@import "../globals.scss";
+.userInfo {
+    display: flex;
+    gap: 5px;
+    // flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: $mainFont;
+}

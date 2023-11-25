@@ -1,0 +1,9 @@
+@import "../globals.scss";
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .logoArea {
+        width: 100%;
+    }
+}

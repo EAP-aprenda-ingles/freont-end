@@ -1,0 +1,13 @@
+@import "../globals.scss";
+.preference {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    img {
+        padding: 5px;
+        border-radius: 5px;
+        background-color: #d9d9d9;
+    }
+}

@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 10px;
     color: #171717;
+    font-family: $mainFont;
 
     .authorArea {
         display: flex;
@@ -25,12 +26,21 @@
                 display: flex;
                 flex-direction: column;
                 font-size: 14px;
+                height: 40px;
 
                 .authorSchool {
                     font-size: 12px;
                 }
             }
         }
+    }
+
+    .postTitle {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+        font-size: 14px;
     }
 
     .postDescription {
