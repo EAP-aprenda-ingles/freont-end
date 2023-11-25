@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../../../styles/UtilComponents/user.module.scss";
+import EmptyPosts from "./EmptyPosts";
 import Preference from "./Preference";
 import UserField from "./UserField";
 import Follow from "./buttons/Follow";
@@ -77,7 +78,7 @@ export default async function User({ id }: { id: string }) {
           )}
           {decodedToken.sub === user.id ? (
             <Others
-              text="Compartilhar Perfil"
+              text="Compartilhar"
               url={`http://192.168.2.17:3000/user/${user.id}`}
             />
           ) : (
@@ -97,7 +98,7 @@ export default async function User({ id }: { id: string }) {
             })}
           </div>
         ) : (
-          <p>no posts</p>
+          <EmptyPosts />
         )}
       </div>
     </main>

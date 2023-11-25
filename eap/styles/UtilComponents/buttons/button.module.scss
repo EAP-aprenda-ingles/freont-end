@@ -4,8 +4,10 @@
     color: white;
     border: 0;
     padding: 5px 10px;
-    border-radius: 3px;
+    border-radius: 7px;
     cursor: pointer;
     font-family: $mainFont;
     font-size: 14px;
+    font-weight: bold;
+    min-width: 130px;
 }

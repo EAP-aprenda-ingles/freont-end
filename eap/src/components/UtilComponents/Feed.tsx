@@ -12,7 +12,7 @@ export default async function Feed() {
   });
   const posts: article_type[] = response.data;
   return (
-    <section>
+    <section style={{ paddingBottom: "40px" }}>
       {posts.map((post) => {
         return <Article key={post.id} post={post} />;
       })}

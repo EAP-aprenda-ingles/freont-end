@@ -20,6 +20,7 @@ export default function Article({ post }: { post: article_type }) {
   const router = useRouter();
   const [liked, setLiked] = useState<boolean>(post.likedByUser);
   const [serverPost, setServerPost] = useState<article_type>(post);
+  // console.log(serverPost);
   const token = Cookie.get("user_token");
 
   const handleLikePost = async (postId: string) => {
