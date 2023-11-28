@@ -15,7 +15,6 @@ export function salvarTokenNoCookie(token: string): boolean {
 
 export function getDecodedToken(): JWTToken | false {
     const token = Cookie.get("user_token");
-    console.log(Cookie)
     if (token) {
         try {
             const decodedToken: JWTToken = jwtDecode(token);

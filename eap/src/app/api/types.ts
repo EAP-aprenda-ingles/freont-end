@@ -55,16 +55,44 @@ export type article_type = {
     interactions: number
 }
 
-export type comment_type = {
-    id: string,
+export type resumed_article_type = {
+    id: string;
+    description: string;
+    title: string;
+    coverUrl: string;
     user: {
-        className: string,
-        name: string,
-        profilePic: string,
-        id: string
-    },
-    content: string,
-    createdAt: Date
+        name: string;
+        profilePic: string;
+        id: string;
+    };
+    createdAt: Date;
+    comments: {
+        id: number;
+        user: {
+            id: string;
+            createdAt: Date;
+            name: string;
+            profilePic: string;
+        };
+        content: string;
+        happenedAt: Date;
+    }[];
+    category: {
+        id: string,
+        name: string
+    };
+}
+
+export type comment_type = {
+    id: number;
+    content: string;
+    happenedAt: string;
+    user: {
+        id: string;
+        name: string;
+        createdAt: string;
+        profilePic: string;
+    };
 }
 
 export type user_type = {

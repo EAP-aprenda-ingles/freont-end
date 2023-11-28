@@ -21,7 +21,6 @@ export default async function User({ id }: { id: string }) {
   });
   const decodedToken: JWTToken = jwtDecode(token ?? "");
   const user: user_type = response.data;
-  //   console.log(response.data);
   return (
     <main className={styles.main}>
       <div className={styles.topPart}>

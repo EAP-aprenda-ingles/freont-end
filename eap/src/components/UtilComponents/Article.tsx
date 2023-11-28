@@ -20,7 +20,6 @@ export default function Article({ post }: { post: article_type }) {
   const router = useRouter();
   const [liked, setLiked] = useState<boolean>(post.likedByUser);
   const [serverPost, setServerPost] = useState<article_type>(post);
-  // console.log(serverPost);
   const token = Cookie.get("user_token");
 
   const handleLikePost = async (postId: string) => {
@@ -40,7 +39,6 @@ export default function Article({ post }: { post: article_type }) {
       setServerPost(response.data);
     }
   };
-  console.log();
   return (
     <div className={styles.post}>
       <div className={styles.authorArea}>
@@ -63,19 +61,21 @@ export default function Article({ post }: { post: article_type }) {
           </div>
         </Link>
       </div>
-      <span className={styles.postTitle}>
-        <h3>{serverPost.title}</h3>
-      </span>
-      <span className={styles.postDescription}>
-        <span>{serverPost.description}</span>
-      </span>
-      <div className={styles.postImage}>
-        <img
-          src={serverPost.articleCover}
-          alt="post content"
-          onDoubleClick={() => handleLikePost(post.id)}
-        />
-      </div>
+      <Link href={`/article/${serverPost.id}`}>
+        <span className={styles.postTitle}>
+          <h3>{serverPost.title}</h3>
+        </span>
+        <span className={styles.postDescription}>
+          <span>{serverPost.description}</span>
+        </span>
+        <div className={styles.postImage}>
+          <img
+            src={serverPost.articleCover}
+            alt="post content"
+            // onDoubleClick={() => handleLikePost(post.id)}
+          />
+        </div>
+      </Link>
 
       <div className={styles.interactions}>
         <div>
