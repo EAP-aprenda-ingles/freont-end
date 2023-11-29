@@ -1,3 +1,4 @@
+import { select_type } from "@/app/api/types";
 import React from "react";
 import Select from "react-select";
 
@@ -31,24 +32,17 @@ const DefaultSelect = ({
   name,
   onChange,
 }: {
-  options: any[];
+  options: select_type[];
   placeholder: string;
   isMulti: boolean;
   name: string;
   onChange: (e: any) => void;
 }) => {
-  const preferenceOptions = [];
-  for (const preference of options) {
-    preferenceOptions.push({
-      value: preference.id,
-      label: preference.name,
-    });
-  }
   return (
     <div style={{ width: "100%" }}>
       <Select
         placeholder={placeholder}
-        options={preferenceOptions}
+        options={options}
         isMulti={isMulti}
         styles={customStyles}
         name={name}

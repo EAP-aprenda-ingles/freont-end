@@ -23,43 +23,50 @@ export default function Article({ post }: { post: article_type }) {
   const token = Cookie.get("user_token");
 
   const handleLikePost = async (postId: string) => {
-    const response = await api.post(
-      "/likes",
-      {
-        postId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const response = await api.post(
+        "/likes",
+        {
+          postId,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200 || response.status === 201) {
+        setLiked((prevLiked) => !prevLiked);
+        setServerPost({ ...serverPost, likes: response.data.likes });
+        router.refresh();
       }
-    );
-    if (response.status == 200 || response.status === 201) {
-      setLiked(!liked);
-      setServerPost(response.data);
+    } catch (error) {
+      console.error("Erro ao curtir o post:", error);
+      // Lógica de tratamento de erro, se necessário
     }
   };
+
   return (
     <div className={styles.post}>
-      <div className={styles.authorArea}>
-        <Link href={`/user/${serverPost.author.id}`}>
-          <Image
-            src={serverPost.author.profilePic}
-            alt={serverPost.author.name}
-            width={40}
-            height={40}
-            quality={100}
-            style={{ aspectRatio: "1/1" }}
-          />
-        </Link>
-        <Link href={`/user/${serverPost.author.id}`}>
-          <div className={styles.authorInfos}>
-            <span>{serverPost.author.name}</span>
-            <span className={styles.authorSchool}>
-              {serverPost.author.School.name}
-            </span>
-          </div>
-        </Link>
+      <div
+        className={styles.authorArea}
+        onClick={() => router.push(`/user/${serverPost.author.id}`)}
+      >
+        <Image
+          src={serverPost.author.profilePic}
+          alt={serverPost.author.name}
+          width={40}
+          height={40}
+          quality={100}
+          style={{ aspectRatio: "1/1" }}
+        />
+
+        <div className={styles.authorInfos}>
+          <span>{serverPost.author.name}</span>
+          <span className={styles.authorSchool}>
+            {serverPost.author.School.name}
+          </span>
+        </div>
       </div>
       <Link href={`/article/${serverPost.id}`}>
         <span className={styles.postTitle}>
@@ -69,11 +76,7 @@ export default function Article({ post }: { post: article_type }) {
           <span>{serverPost.description}</span>
         </span>
         <div className={styles.postImage}>
-          <img
-            src={serverPost.articleCover}
-            alt="post content"
-            // onDoubleClick={() => handleLikePost(post.id)}
-          />
+          <img src={serverPost.articleCover} alt="post content" />
         </div>
       </Link>
 
@@ -96,13 +99,9 @@ export default function Article({ post }: { post: article_type }) {
           )}
           <span>{serverPost.likes}</span>
         </div>
-        <div>
-          <Link href={`/post/comments/${serverPost.id}`}>
-            <Image src={comment} alt="comment" quality={100} />
-          </Link>
-          <Link href={`/post/comments/${serverPost.id}`}>
-            <span>{post.comments}</span>
-          </Link>
+        <div onClick={() => router.push(`/article/${post.id}`)}>
+          <Image src={comment} alt="comment" quality={100} />
+          <span>{post.comments}</span>
         </div>
         <div className={styles.userInteractions}>
           <Image src={user} alt="user-image" quality={100} />

@@ -59,6 +59,13 @@ export default function CreateArticleForm({
     );
     router.push("/homepage");
   };
+  const preferenceOptions = [];
+  for (const preference of preferences) {
+    preferenceOptions.push({
+      value: preference.id,
+      label: preference.name,
+    });
+  }
   return (
     <form onSubmit={handleCreateFile} className={styles.form}>
       <div className={styles.formUtil}>
@@ -81,7 +88,7 @@ export default function CreateArticleForm({
           }}
           name="preferences"
           placeholder="Categoria"
-          options={preferences}
+          options={preferenceOptions}
         />
         <DefaultButton type="submit" text="Criar Artigo" />
       </div>

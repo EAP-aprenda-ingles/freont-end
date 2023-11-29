@@ -14,24 +14,24 @@
         width: 100%;
         padding: 0 20px;
 
+        img {
+            aspect-ratio: "1/1";
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #171717;
+        }
+
+        .authorInfos {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            height: 40px;
+
+            .authorSchool {
+                font-size: 12px;
+            }
+        }
         a {
-            img {
-                aspect-ratio: "1/1";
-                border-radius: 50%;
-                object-fit: cover;
-                border: 1px solid #171717;
-            }
-
-            .authorInfos {
-                display: flex;
-                flex-direction: column;
-                font-size: 14px;
-                height: 40px;
-
-                .authorSchool {
-                    font-size: 12px;
-                }
-            }
         }
     }
 

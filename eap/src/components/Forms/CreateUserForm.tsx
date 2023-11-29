@@ -55,6 +55,21 @@ export default function CreateUserForm({
       router.push("/homepage");
     }
   };
+  const preferenceOptions = [];
+  for (const preference of preferences) {
+    preferenceOptions.push({
+      value: preference.id,
+      label: preference.name,
+    });
+  }
+
+  const schoolsOptions = [];
+  for (const school of schools) {
+    schoolsOptions.push({
+      value: school.id,
+      label: school.name,
+    });
+  }
   return (
     <form onSubmit={handleCreateUser} className={styles.form}>
       <div className={styles.fieldsArea}>
@@ -71,7 +86,7 @@ export default function CreateUserForm({
           }}
           name="preferences"
           placeholder="Preferências"
-          options={preferences}
+          options={preferenceOptions}
           isMulti
         />
         <DefaultSelect
@@ -80,7 +95,7 @@ export default function CreateUserForm({
           }}
           name="school"
           placeholder="Escolas"
-          options={schools}
+          options={schoolsOptions}
           isMulti={false}
         />
         <div className={styles.profilePic}>
