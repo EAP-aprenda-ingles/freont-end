@@ -1,15 +1,24 @@
 @import "./globals.scss";
 .form {
     display: flex;
+    background-color: $backgroundColor;
+    @media (min-width: $screenTablet) {
+        bottom: 0;
+    }
     div {
+        background-color: $backgroundColor;
         border-top: 1px solid $primaryColor;
         height: 41px;
         position: fixed;
         width: 100%;
-        bottom: 55px;
+        bottom: 50px;
+
+        @media (min-width: $screenTablet) {
+            bottom: 0;
+        }
 
         label {
-            bottom: 52px;
+            bottom: 48px;
             position: fixed;
             right: 0;
             z-index: 1;
@@ -18,6 +27,10 @@
             align-items: center;
             width: 75px;
             justify-content: center;
+
+            @media (min-width: $screenTablet) {
+                bottom: 0;
+            }
 
             button {
                 background-color: transparent;
@@ -29,7 +42,7 @@
             }
         }
         input {
-            bottom: 55px;
+            bottom: 52px;
             position: fixed;
             width: calc(100% - 75px);
             background-color: transparent;
@@ -39,6 +52,9 @@
             padding: 10px 5px;
             color: $primaryColor;
             font-family: $mainFont;
+            @media (min-width: $screenTablet) {
+                bottom: 2px;
+            }
 
             &::placeholder {
                 font-family: $mainFont;

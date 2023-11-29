@@ -11,10 +11,66 @@
     align-items: center;
     justify-content: space-around;
 
+    @media (min-width: $screenTablet) {
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100vh;
+        border-top: unset;
+        border-right: 2px solid #171717;
+        flex-direction: column;
+        justify-content: start;
+        padding-top: 50px;
+        gap: 50px;
+        // align-items: start;
+    }
+
+    .logo {
+        @media (max-width: $screenMobileL) {
+            width: 0;
+            display: none;
+            height: 0;
+        }
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        @media (min-width: $screenTablet) {
+            width: 130px;
+            align-items: center;
+            justify-content: start;
+        }
+        span,
+        nobr {
+            font-family: $mainFont;
+            @media (max-width: $screenTablet) {
+                display: none;
+                width: 0;
+            }
+        }
+    }
+
     .profilePic {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
         img {
             border-radius: 50%;
             aspect-ratio: "1/1";
+
+            @media (min-width: $screenTablet) {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        nobr {
+            font-size: 14px;
         }
     }
 }

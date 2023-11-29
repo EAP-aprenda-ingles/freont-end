@@ -136,3 +136,40 @@ export type resumed_user_type = {
     userClass: string,
     followedByUser: boolean
 }
+
+export type file_type = {
+    id: string,
+    file: string[],
+    description: string,
+    title: string,
+    coverUrl: string,
+    user: {
+        name: string,
+        profilePic: string,
+        id: string,
+        school: string
+    },
+    createdAt: string,
+    actions: word_type[],
+    category: {
+        id: number,
+        name: string
+    }
+}
+
+export type word_type = {
+    word: string,
+    category: {
+        category: string,
+        color: string,
+        id: number
+    }
+};
+
+export type category_type = {
+    id: number,
+    category: string,
+    color: string,
+    description: string,
+    resumedDescription: string
+  }

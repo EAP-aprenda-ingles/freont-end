@@ -1,15 +1,11 @@
 import { api } from "@/app/api";
-import { article_type } from "@/app/api/types";
-import EmptyComments from "@/components/DefaultComponents/EmptyComments";
+import { category_type, file_type } from "@/app/api/types";
 import Footer from "@/components/DefaultComponents/Footer";
-import CreateCommentForm from "@/components/Forms/CreateCommentForm";
-import Article from "@/components/UtilComponents/Article";
-import Comment from "@/components/UtilComponents/Comment";
+import SelectableText from "@/components/UtilComponents/SelectableText";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../../../public/logo-sem-fundo.png";
-import styles from "../../../../../styles/Pages/article.module.scss";
+import styles from "../../../../../styles/Pages/articletext.module.scss";
 
 export default async function ArticleTextPage({
   params,
@@ -18,38 +14,50 @@ export default async function ArticleTextPage({
 }) {
   const id: string = params.id;
   const token = cookies().get("user_token")?.value;
-  const response = await api.get(`/article/page/${id}`, {
+  const response = await api.get(`/article/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  const post: article_type = response.data;
+  const post: {
+    fileData: file_type;
+    categories: { categories: category_type[] };
+  } = response.data;
   return (
     <main className={styles.main}>
       <div className={styles.top}>
-        <Image
-          src={logo}
-          quality={100}
-          alt="logo"
-          placeholder="blur"
-          height={70}
-          width={70}
-        />
-      </div>
-      <Article post={post} />
-      <div className={styles.buttonArea}>
-        <Link href={`/article/text/${post.id}`} className={styles.button}>
-          Aplicar técnicas de leitura
+        <h2>Criado por:</h2>
+        <Link
+          href={`/user/${post.fileData.user.id}`}
+          className={styles.userCard}
+        >
+          <Image
+            src={post.fileData.user.profilePic}
+            alt="author-photo"
+            width={50}
+            height={50}
+            quality={100}
+          />
+          <div>
+            <h3>{post.fileData.user.name}</h3>
+            <span>{post.fileData.user.school}</span>
+          </div>
+        </Link>
+        <Link href={post.fileData.coverUrl} target="_blank">
+          Acessar documento original
         </Link>
       </div>
-      {post.fullComments.length > 0 ? (
-        post.fullComments.map((comment) => {
-          return <Comment comment={comment} key={comment.id} />;
-        })
-      ) : (
-        <EmptyComments />
-      )}
-      <CreateCommentForm postId={id} />
+      <section className={styles.textArea}>
+        <div className={styles.postTitle}>
+          <h1>{post.fileData.title}</h1>
+        </div>
+        <SelectableText
+          categories={post.categories.categories}
+          fileId={post.fileData.id}
+          text={post.fileData.file}
+          toHighlight={post.fileData.actions}
+        />
+      </section>
       <Footer />
     </main>
   );

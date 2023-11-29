@@ -7,9 +7,11 @@ import styles from "../../../styles/DefaultComponents/footer.module.scss";
 export default function UserProfilePic({
   image,
   userId,
+  userName,
 }: {
   image: string;
   userId: string;
+  userName: string;
 }) {
   const { href: currentUrl, pathname } = useUrl() ?? {};
   return (
@@ -22,10 +24,17 @@ export default function UserProfilePic({
         alt="user"
         style={
           String(currentUrl).match(`/user/${userId}`)
-            ? { border: "1px solid #171717" }
-            : {}
+            ? {
+                border: "1px solid #171717",
+                objectFit: "cover",
+                aspectRatio: "1/1",
+              }
+            : { objectFit: "cover", aspectRatio: "1/1" }
         }
       />
+      <nobr>
+        <strong>{userName}</strong>
+      </nobr>
     </Link>
   );
 }
