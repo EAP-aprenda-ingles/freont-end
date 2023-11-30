@@ -1,0 +1,9 @@
+@import "../globals.scss";
+.feed {
+    padding-bottom: 40px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}

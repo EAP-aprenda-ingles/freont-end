@@ -1,6 +1,7 @@
 @import "./globals.scss";
 .form {
     display: flex;
+    width: 100%;
     background-color: $backgroundColor;
     @media (min-width: $screenTablet) {
         bottom: 0;

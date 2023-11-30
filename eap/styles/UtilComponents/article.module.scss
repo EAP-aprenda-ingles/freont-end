@@ -6,6 +6,13 @@
     gap: 10px;
     color: #171717;
     font-family: $mainFont;
+    max-width: 500px;
+    min-width: calc($minSize + 20px);
+
+    // @media (min-width: $screenTablet) {
+    //     border: 1px solid $primaryColor;
+    //     border-radius: 10px;
+    // }
 
     .authorArea {
         display: flex;
@@ -22,6 +29,7 @@
         }
 
         .authorInfos {
+            // padding: 0 20px;
             display: flex;
             flex-direction: column;
             font-size: 14px;
@@ -31,8 +39,8 @@
                 font-size: 12px;
             }
         }
-        a {
-        }
+        // a {
+        // }
     }
 
     .postTitle {

@@ -39,10 +39,6 @@ export default function SelectableText({
 
   const handleSaveChanges = async () => {
     const token = Cookie.get("user_token");
-    console.log({
-      fileId,
-      words: wordsList,
-    });
     const response = await api.post(
       "/actions",
       {
@@ -55,6 +51,18 @@ export default function SelectableText({
         },
       }
     );
+    // if (response.status === 200 || response.status === 201) {
+    //   router.push("/homepage");
+    // }
+  };
+
+  const handleSaveOnFeed = async () => {
+    const token = Cookie.get("user_token");
+    const response = await api.post(`/saveOnFeed/${fileId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.status === 200 || response.status === 201) {
       router.push("/homepage");
     }
@@ -134,52 +142,6 @@ export default function SelectableText({
             </button>
           </div>
         </PopUp>
-
-        // <>
-        //   <div>
-        //     <label>Selected word: {selectedWord}</label>
-        //   </div>
-        //   <div>
-        //     <label htmlFor="category_select">Select Category:</label>
-        //     <select
-        //       name="category_select"
-        //       id="category_select"
-        //       value={selectedCategory}
-        //       onChange={(e) => {
-        //         setSelectedCategory(Number(e.target.value));
-        //       }}
-        //     >
-        //       <option value={0}>Selecione uma categoria</option>
-        //       {categories &&
-        //         categories.map((category) => {
-        //           return (
-        //             <option value={category.id} key={category.id}>
-        //               {category.category}
-        //             </option>
-        //           );
-        //         })}
-        //     </select>
-        //   </div>
-        //   {selectedCategory && (
-        //     <p>{categories[selectedCategory - 1].description}</p>
-        //   )}
-        //   <DefaultButton
-        //     text="Adicionar palavra"
-        //     onClick={(e) => {
-        //       if (selectedCategory && selectedWord) {
-        //         setWordsList([
-        //           ...wordsList,
-        //           {
-        //             category: categories[selectedCategory - 1],
-        //             word: selectedWord,
-        //           },
-        //         ]);
-        //         setSelectedWord("");
-        //         setSelectedCategory(0);
-        //       }
-        //     }}
-        //   />
-        // </>
       )}
       <button
         type="button"
@@ -188,6 +150,13 @@ export default function SelectableText({
       >
         Salvar alterações
       </button>
+      <div className={styles.saveOnFeed}>
+        <DefaultButton
+          onClick={handleSaveChanges}
+          text="Salvar no feed"
+          type="button"
+        />
+      </div>
     </div>
   );
 }
