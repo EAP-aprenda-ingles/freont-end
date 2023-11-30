@@ -181,8 +181,12 @@ export default function SelectableText({
         //   />
         // </>
       )}
-      <button type="button" onClick={handleSaveChanges}>
-        Save Changes
+      <button
+        type="button"
+        className={styles.button}
+        onClick={handleSaveChanges}
+      >
+        Salvar alterações
       </button>
     </div>
   );
