@@ -58,14 +58,18 @@ export default function SelectableText({
 
   const handleSaveOnFeed = async () => {
     const token = Cookie.get("user_token");
-    const response = await api.post(`/saveOnFeed/${fileId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.status === 200 || response.status === 201) {
-      router.push("/homepage");
-    }
+    const response = await api.post(
+      `/saveOnFeed/${fileId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    // if (response.status === 200 || response.status === 201) {
+    //   router.push("/homepage");
+    // }
   };
 
   const categoryOptions = [];
@@ -75,6 +79,10 @@ export default function SelectableText({
       label: category.category,
     });
   }
+
+  const getWordsInParagraph = (paragraph: string) => {
+    return wordsList.filter((word) => paragraph.includes(word.word));
+  };
 
   return (
     <div className={styles.text}>
@@ -86,7 +94,11 @@ export default function SelectableText({
               onCopy={handleDoubleClick}
               onFocus={handleDoubleClick}
             >
-              <Highlight text={paragraph} toHighlight={wordsList} key={index} />
+              <Highlight
+                text={paragraph}
+                toHighlight={getWordsInParagraph(paragraph)}
+                key={index}
+              />
             </p>
           </div>
         ))}
@@ -125,13 +137,22 @@ export default function SelectableText({
             <button
               onClick={(e) => {
                 if (selectedCategory && selectedWord) {
-                  setWordsList([
-                    ...wordsList,
-                    {
+                  const words = selectedWord.split(" ");
+                  let newWordsList = [...wordsList];
+                  if (words.length > 1) {
+                    for (const word of words) {
+                      newWordsList.push({
+                        category: categories[selectedCategory - 1],
+                        word: word,
+                      });
+                    }
+                  } else {
+                    newWordsList.push({
                       category: categories[selectedCategory - 1],
                       word: selectedWord,
-                    },
-                  ]);
+                    });
+                  }
+                  setWordsList(newWordsList);
                   setSelectedWord("");
                   setSelectedCategory(0);
                 }
@@ -151,11 +172,9 @@ export default function SelectableText({
         Salvar alterações
       </button>
       <div className={styles.saveOnFeed}>
-        <DefaultButton
-          onClick={handleSaveChanges}
-          text="Salvar no feed"
-          type="button"
-        />
+        <button onClick={handleSaveOnFeed} type="button">
+          Salvar no feed
+        </button>
       </div>
     </div>
   );

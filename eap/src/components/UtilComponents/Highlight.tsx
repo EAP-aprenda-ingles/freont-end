@@ -17,7 +17,7 @@ const Highlight: React.FC<{ text: string; toHighlight: word_type[] }> = ({
 
         return (
           <React.Fragment key={index}>
-            {highlightedWord ? (
+            {highlightedWord && highlightedWord.word !== " " ? (
               <mark
                 className={
                   highlightedWord.category.id === 1

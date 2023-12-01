@@ -6,11 +6,14 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../../../styles/UtilComponents/user.module.scss";
+import AddArticle from "./AddArticle";
 import EmptyPosts from "./EmptyPosts";
+import IsPrivateAccount from "./IsPrivateAccount";
 import Preference from "./Preference";
 import UserField from "./UserField";
 import Follow from "./buttons/Follow";
 import Others from "./buttons/Others";
+import RequestToFollow from "./buttons/RequestToFollow";
 
 export default async function User({ id }: { id: string }) {
   const token = cookies().get("user_token")?.value;
@@ -68,12 +71,20 @@ export default async function User({ id }: { id: string }) {
         <div className={styles.userActions}>
           {decodedToken.sub === user.id ? (
             <Others text="Editar Perfil" url={`/user/edit/${user.id}`} />
-          ) : (
-            <Follow
+          ) : !user.isPublic ? (
+            <RequestToFollow
+              requestedToFollow={user.followedByUser}
               token={token ?? ""}
               userId={user.id}
-              followedByUser={user.followedByUser}
             />
+          ) : (
+            user.followedByUser && (
+              <Follow
+                token={token ?? ""}
+                userId={user.id}
+                followedByUser={user.followedByUser}
+              />
+            )
           )}
           {decodedToken.sub === user.id ? (
             <Others
@@ -86,16 +97,24 @@ export default async function User({ id }: { id: string }) {
         </div>
       </div>
       <div className={styles.postsList}>
-        {user.articles.length > 0 ? (
+        {user.articles.length > 0 || user.followedByUser ? (
           <div className={styles.postsArea}>
-            {user.articles.map((article) => {
-              return (
-                <Link href={`/article/${article.id}`}>
-                  <img src={article.articleCover} alt="user-post" />
-                </Link>
-              );
-            })}
+            {user.isPublic || user.id === decodedToken.sub ? (
+              user.articles.map((article) => {
+                return (
+                  <Link href={`/article/${article.id}`}>
+                    <img src={article.articleCover} alt="user-post" />
+                  </Link>
+                );
+              })
+            ) : (
+              <div />
+            )}
           </div>
+        ) : user.id === decodedToken.sub ? (
+          <AddArticle />
+        ) : user.id !== decodedToken.sub ? (
+          <IsPrivateAccount />
         ) : (
           <EmptyPosts />
         )}

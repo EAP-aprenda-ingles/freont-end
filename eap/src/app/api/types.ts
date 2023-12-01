@@ -108,6 +108,7 @@ export type user_type = {
     name: string,
     description: string,
     followedByUser: boolean,
+    isPublic: boolean,
     articles: {
         coverUrl: string,
         id: string,
@@ -173,3 +174,12 @@ export type category_type = {
     description: string,
     resumedDescription: string
   }
+
+export type notification_type = {
+    id: number;
+    userId: string;
+    type: string;
+    content: string;
+    happenedAt: string;
+    deletedAt: string | null;
+}
