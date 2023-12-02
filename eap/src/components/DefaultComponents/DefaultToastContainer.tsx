@@ -11,6 +11,7 @@ export default function DefaultToastContainer() {
       hideProgressBar={false}
       newestOnTop
       closeOnClick
+      icon={true}
       rtl={false}
       pauseOnFocusLoss
       pauseOnHover

@@ -9,6 +9,8 @@
     min-height: 100vh;
     @media (min-width: $screenTablet) {
         // padding: 50px 20px 0 20px;
+        margin-left: 250px;
+
         width: calc(100vw - 250px);
         // padding-top: 50px;
     }

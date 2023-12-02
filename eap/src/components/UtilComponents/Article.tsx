@@ -41,11 +41,14 @@ export default function Article({ post }: { post: article_type }) {
         setLiked((prevLiked) => !prevLiked);
         setServerPost({ ...serverPost, likes: response.data.likes });
         router.refresh();
-        toast.success("Post curtido com sucesso", {
-          style: {
-            backgroundColor: "#171717",
-          },
-        });
+        toast.success(
+          liked ? "Post descurtido com sucesso" : "Post curtido com sucesso",
+          {
+            style: {
+              backgroundColor: "#171717",
+            },
+          }
+        );
       }
     } catch (error) {
       console.error("Erro ao curtir o post:", error);

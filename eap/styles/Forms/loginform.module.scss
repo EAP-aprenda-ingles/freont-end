@@ -1,0 +1,82 @@
+@import "../globals.scss";
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // padding: 100px 1.5rem;
+    min-height: 100vh;
+
+    flex: 1;
+    .logoArea {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: $mainFont;
+
+        h1 {
+            font-size: 45px;
+        }
+    }
+
+    form {
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .inputsArea {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .buttonsArea {
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            button {
+                height: 55px;
+                width: 100%;
+                max-width: 290px;
+                border: 0;
+                padding: 10px 0;
+                border-radius: 12px;
+                font-weight: bold;
+                transition: all ease 0.2s;
+                cursor: pointer;
+                margin-bottom: 20px;
+                font-size: 18px;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+            .button {
+                background-color: $primaryColor;
+                color: white;
+            }
+
+            .reverseButton {
+                background-color: $backgroundColor;
+                border: 2px solid $primaryColor;
+            }
+        }
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+
+        a {
+            transition: all ease 0.2s;
+            &:hover {
+                transform: translateY(-5px);
+            }
+        }
+    }
+}

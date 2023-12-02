@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import styles from "../../../styles/Forms/createarticleform.module.scss";
 import { ArticleMediaPicker } from "../DefaultComponents/ArticleMediaPicker";
 import DefaultButton from "../DefaultComponents/DefaultButton";
@@ -26,39 +27,54 @@ export default function CreateArticleForm({
     const imageToUpload = formData.get("mediaImage");
     let coverUrl = "";
     let fileImage = "";
-    if (fileToUpload) {
-      const uploadFormData = new FormData();
-      uploadFormData.set("file", fileToUpload);
-      const uploadResponse = await api.post("/upload/file", uploadFormData);
-      coverUrl = uploadResponse.data.fileURL;
-    }
-    if (imageToUpload) {
-      const uploadFormData = new FormData();
-      uploadFormData.set("file", imageToUpload);
-      const uploadResponse = await api.post(
-        "/upload/fileImage",
-        uploadFormData
-      );
-      fileImage = uploadResponse.data.fileURL;
-    }
-    const token = Cookie.get("user_token");
-    await api.post(
-      "/article",
-      {
-        coverUrl,
-        articleCover: fileImage,
-        title: formData.get("title"),
-        description: formData.get("description"),
-        category: articleCategory,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+
+    try {
+      if (fileToUpload) {
+        const uploadFormData = new FormData();
+        uploadFormData.set("file", fileToUpload);
+        const uploadResponse = await api.post("/upload/file", uploadFormData);
+        coverUrl = uploadResponse.data.fileURL;
       }
-    );
-    router.push("/homepage");
+      if (imageToUpload) {
+        const uploadFormData = new FormData();
+        uploadFormData.set("file", imageToUpload);
+        const uploadResponse = await api.post(
+          "/upload/fileImage",
+          uploadFormData
+        );
+        fileImage = uploadResponse.data.fileURL;
+      }
+      const token = Cookie.get("user_token");
+      await api.post(
+        "/article",
+        {
+          coverUrl,
+          articleCover: fileImage,
+          title: formData.get("title"),
+          description: formData.get("description"),
+          category: articleCategory,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      router.push("/homepage");
+      toast.success("Artigo criado com sucesso!", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
+    } catch (error) {
+      toast.error("Erro ao criar artigo", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
+    }
   };
+
   const preferenceOptions = [];
   for (const preference of preferences) {
     preferenceOptions.push({

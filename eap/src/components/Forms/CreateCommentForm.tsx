@@ -4,7 +4,9 @@ import Cookie from "js-cookie";
 import { MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import styles from "../../../styles/Forms/createcommentform.module.scss";
+import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 
 export default function CreateCommentForm({ postId }: { postId: string }) {
   const [comment, setComment] = useState<string>("");
@@ -14,24 +16,41 @@ export default function CreateCommentForm({ postId }: { postId: string }) {
     const formData = new FormData(event.currentTarget);
 
     const token = Cookie.get("user_token");
-    const response = await api.post(
-      `/comments/${postId}`,
-      {
-        content: formData.get("comment"),
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+
+    try {
+      const response = await api.post(
+        `/comments/${postId}`,
+        {
+          content: formData.get("comment"),
         },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200 || response.status === 201) {
+        setComment("");
+        router.refresh();
+        toast.success("Comentário criado com sucesso!", {
+          style: {
+            backgroundColor: "#171717",
+          },
+        });
       }
-    );
-    if (response.status === 200 || response.status === 201) {
-      setComment("");
-      router.refresh();
+    } catch (error) {
+      console.error("Erro ao criar comentário:", error);
+      toast.error("Erro ao criar comentário", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
     }
   };
+
   return (
     <form className={styles.form} onSubmit={handleCreateComment}>
+      <DefaultToastContainer />
       <div>
         <label htmlFor="comment">
           <button type="submit">

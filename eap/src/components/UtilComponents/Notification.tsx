@@ -87,10 +87,14 @@ export default function Notification({
       <DefaultToastContainer />
       <span>{serverNotification.content}</span>
       {serverNotification.type === "followRequest" ? (
-        <button onClick={handleAcceptFollowRequest}>Aceitar solicitação</button>
+        <button className={styles.button} onClick={handleAcceptFollowRequest}>
+          Aceitar solicitação
+        </button>
       ) : (
         serverNotification.deletedAt === null && (
-          <button onClick={handleReadNotification}>Marcar como lida</button>
+          <button className={styles.button} onClick={handleReadNotification}>
+            Marcar como lida
+          </button>
         )
       )}
     </div>

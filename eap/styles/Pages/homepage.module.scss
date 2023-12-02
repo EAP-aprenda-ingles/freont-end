@@ -9,6 +9,7 @@
     // margin-bottom: 90px;
     font-family: $mainFont;
     @media (min-width: $screenTablet) {
+        margin-left: 250px;
         width: calc(100vw - 250px);
         padding: 0 20px;
     }

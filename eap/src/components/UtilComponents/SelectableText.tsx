@@ -4,9 +4,11 @@ import { category_type, select_type, word_type } from "@/app/api/types";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import styles from "../../../styles/UtilComponents/selectabletsxt.module.scss";
 import DefaultButton from "../DefaultComponents/DefaultButton";
 import DefaultSelect from "../DefaultComponents/DefaultSelect";
+import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 import PopUp from "../DefaultComponents/PopUp";
 import SecondarySelect from "../DefaultComponents/SecondarySelect";
 import Highlight from "./Highlight";
@@ -38,38 +40,60 @@ export default function SelectableText({
   };
 
   const handleSaveChanges = async () => {
-    const token = Cookie.get("user_token");
-    const response = await api.post(
-      "/actions",
-      {
-        fileId,
-        words: wordsList,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const token = Cookie.get("user_token");
+      const response = await api.post(
+        "/actions",
+        {
+          fileId,
+          words: wordsList,
         },
-      }
-    );
-    // if (response.status === 200 || response.status === 201) {
-    //   router.push("/homepage");
-    // }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Alterações salvas com sucesso!", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
+    } catch (error) {
+      toast.error("Erro ao salvar as alterações", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
+    }
   };
 
   const handleSaveOnFeed = async () => {
-    const token = Cookie.get("user_token");
-    const response = await api.post(
-      `/saveOnFeed/${fileId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const token = Cookie.get("user_token");
+      const response = await api.post(
+        `/saveOnFeed/${fileId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Salvo no feed com sucesso!", {
+        style: {
+          backgroundColor: "#171717",
         },
-      }
-    );
-    // if (response.status === 200 || response.status === 201) {
-    //   router.push("/homepage");
-    // }
+      });
+    } catch (error) {
+      toast.error("Erro ao salvar no feed", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
+    }
   };
 
   const categoryOptions = [];
@@ -87,6 +111,7 @@ export default function SelectableText({
   return (
     <div className={styles.text}>
       <div>
+        <DefaultToastContainer />
         {text.map((paragraph, index) => (
           <div key={index}>
             <p

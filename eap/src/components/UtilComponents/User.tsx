@@ -95,7 +95,10 @@ export default async function User({ id }: { id: string }) {
         </div>
       </div>
       <div className={styles.postsList}>
-        {user.articles.length > 0 && (user.followedByUser || user.isPublic) ? (
+        {user.articles.length > 0 &&
+        (user.followedByUser ||
+          user.isPublic ||
+          decodedToken.sub === user.id) ? (
           <div className={styles.postsArea}>
             {user.articles.map((article) => (
               <Link href={`/article/${article.id}`} key={article.id}>
