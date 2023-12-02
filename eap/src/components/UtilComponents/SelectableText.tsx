@@ -29,7 +29,7 @@ export default function SelectableText({
   const router = useRouter();
 
   const handleDoubleClick = () => {
-    const selectedText = window.getSelection()?.toString();
+    const selectedText = window.getSelection()?.toString().trim();
 
     if (selectedText) {
       setSelectedWord(selectedText);
@@ -134,6 +134,7 @@ export default function SelectableText({
             {selectedCategory !== 0 && (
               <span>{categories[selectedCategory - 1].description}</span>
             )}
+
             <button
               onClick={(e) => {
                 if (selectedCategory && selectedWord) {
@@ -141,16 +142,34 @@ export default function SelectableText({
                   let newWordsList = [...wordsList];
                   if (words.length > 1) {
                     for (const word of words) {
-                      newWordsList.push({
-                        category: categories[selectedCategory - 1],
-                        word: word,
-                      });
+                      if (word !== " ") {
+                        const existingWordIndex = newWordsList.findIndex(
+                          (w) => w.word === word
+                        );
+                        if (existingWordIndex !== -1) {
+                          newWordsList[existingWordIndex].category =
+                            categories[selectedCategory - 1];
+                        } else {
+                          newWordsList.push({
+                            category: categories[selectedCategory - 1],
+                            word: word,
+                          });
+                        }
+                      }
                     }
                   } else {
-                    newWordsList.push({
-                      category: categories[selectedCategory - 1],
-                      word: selectedWord,
-                    });
+                    const existingWordIndex = newWordsList.findIndex(
+                      (w) => w.word === selectedWord
+                    );
+                    if (existingWordIndex !== -1) {
+                      newWordsList[existingWordIndex].category =
+                        categories[selectedCategory - 1];
+                    } else {
+                      newWordsList.push({
+                        category: categories[selectedCategory - 1],
+                        word: selectedWord,
+                      });
+                    }
                   }
                   setWordsList(newWordsList);
                   setSelectedWord("");
@@ -164,17 +183,19 @@ export default function SelectableText({
           </div>
         </PopUp>
       )}
-      <button
-        type="button"
-        className={styles.button}
-        onClick={handleSaveChanges}
-      >
-        Salvar alterações
-      </button>
-      <div className={styles.saveOnFeed}>
-        <button onClick={handleSaveOnFeed} type="button">
-          Salvar no feed
+      <div className={styles.buttonsArea}>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={handleSaveChanges}
+        >
+          Salvar alterações
         </button>
+        <div className={styles.saveOnFeed}>
+          <button onClick={handleSaveOnFeed} type="button">
+            Salvar no feed
+          </button>
+        </div>
       </div>
     </div>
   );

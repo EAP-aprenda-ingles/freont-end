@@ -3,10 +3,15 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    max-width: 1200px;
 
     @media (min-width: $screenTablet) {
+        margin-left: 10%;
         // padding: 50px 20px 0 20px;
         width: calc(100vw - 250px);
+        align-items: center;
+        // justify-content: center;
+        // margin-left: 125px;
         // padding-top: 50px;
     }
     .logoArea {

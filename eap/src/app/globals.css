@@ -18,6 +18,9 @@ body {
 @media (min-width: 768px) {
   body {
     left: 250px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
   }
 }
 

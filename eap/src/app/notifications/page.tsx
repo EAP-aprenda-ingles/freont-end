@@ -27,14 +27,17 @@ export default async function Notifications() {
           width={70}
         />
       </div>
+      <h1>Notificações</h1>
       <div className={styles.notifications}>
-        {notifications.map((notification) => (
-          <Notification
-            token={token ?? ""}
-            notification={notification}
-            key={notification.id}
-          />
-        ))}
+        <div className={styles.notificationsUtil}>
+          {notifications.map((notification) => (
+            <Notification
+              token={token ?? ""}
+              notification={notification}
+              key={notification.id}
+            />
+          ))}
+        </div>
       </div>
       <Footer />
     </main>

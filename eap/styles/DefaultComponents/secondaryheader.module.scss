@@ -1,0 +1,26 @@
+@import "../globals.scss";
+.header {
+    display: flex;
+    flex-direction: column;
+    font-family: $mainFont;
+
+    .topPart {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        border-bottom: 2px solid $primaryColor;
+    }
+
+    .followersArea {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-bottom: 2px solid $primaryColor;
+        padding: 10px 0;
+
+        @media (min-width: $screenTablet) {
+            max-width: calc(100vw - 250px);
+        }
+    }
+}

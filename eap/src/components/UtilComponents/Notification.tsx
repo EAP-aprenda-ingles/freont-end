@@ -29,11 +29,33 @@ export default function Notification({
       setServerNotification(response.data);
     }
   };
+
+  const handleAcceptFollowRequest = async () => {
+    const response = await api.post(
+      "/followRequests/accept",
+      {
+        notificationId: serverNotification.id,
+        requestId: serverNotification.followReqId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.status === 200 || response.status === 201) {
+      setServerNotification(response.data);
+    }
+  };
   return (
     <div className={styles.notification}>
       <span>{serverNotification.content}</span>
-      {serverNotification.deletedAt === null && (
-        <button onClick={handleReadNotification}>Marcar como lida</button>
+      {serverNotification.type === "followRequest" ? (
+        <button onClick={handleAcceptFollowRequest}>Aceitar solicitação</button>
+      ) : (
+        serverNotification.deletedAt === null && (
+          <button onClick={handleReadNotification}>Marcar como lida</button>
+        )
       )}
     </div>
   );

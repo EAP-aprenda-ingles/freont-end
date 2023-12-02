@@ -20,6 +20,12 @@
         align-items: start;
         justify-content: center;
         gap: 20px;
+        @media (max-width: $screenTablet) {
+            padding: 50px 20px 0 20px;
+            // flex-direction: row;
+            // align-items: center;
+            // justify-content: space-between;
+        }
         .userCard {
             display: flex;
             align-items: center;

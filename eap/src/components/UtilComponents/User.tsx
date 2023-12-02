@@ -71,20 +71,18 @@ export default async function User({ id }: { id: string }) {
         <div className={styles.userActions}>
           {decodedToken.sub === user.id ? (
             <Others text="Editar Perfil" url={`/user/edit/${user.id}`} />
-          ) : !user.isPublic ? (
+          ) : !user.isPublic && !user.followedByUser ? (
             <RequestToFollow
               requestedToFollow={user.followedByUser}
               token={token ?? ""}
               userId={user.id}
             />
           ) : (
-            user.followedByUser && (
-              <Follow
-                token={token ?? ""}
-                userId={user.id}
-                followedByUser={user.followedByUser}
-              />
-            )
+            <Follow
+              token={token ?? ""}
+              userId={user.id}
+              followedByUser={user.followedByUser}
+            />
           )}
           {decodedToken.sub === user.id ? (
             <Others
@@ -97,27 +95,24 @@ export default async function User({ id }: { id: string }) {
         </div>
       </div>
       <div className={styles.postsList}>
-        {user.articles.length > 0 || user.followedByUser ? (
+        {user.articles.length > 0 && (user.followedByUser || user.isPublic) ? (
           <div className={styles.postsArea}>
-            {user.isPublic || user.id === decodedToken.sub ? (
-              user.articles.map((article) => {
-                return (
-                  <Link href={`/article/${article.id}`}>
-                    <img src={article.articleCover} alt="user-post" />
-                  </Link>
-                );
-              })
-            ) : (
-              <div />
-            )}
+            {user.articles.map((article) => (
+              <Link href={`/article/${article.id}`} key={article.id}>
+                <img src={article.articleCover} alt="user-post" />
+              </Link>
+            ))}
           </div>
-        ) : user.id === decodedToken.sub ? (
-          <AddArticle />
-        ) : user.id !== decodedToken.sub ? (
-          <IsPrivateAccount />
         ) : (
-          <EmptyPosts />
+          user.id !== decodedToken.sub && <EmptyPosts />
         )}
+
+        {user.id === decodedToken.sub && user.articles.length === 0 && (
+          <AddArticle />
+        )}
+        {user.id !== decodedToken.sub &&
+          !user.isPublic &&
+          !user.followedByUser && <IsPrivateAccount />}
       </div>
     </main>
   );

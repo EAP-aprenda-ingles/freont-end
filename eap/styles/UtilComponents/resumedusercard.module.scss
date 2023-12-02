@@ -1,0 +1,21 @@
+@import "../globals.scss";
+.resumedUserCard {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-family: $mainFont;
+
+    img {
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+    }
+    .userData {
+        display: flex;
+        flex-direction: column;
+        width: 210px;
+        padding-left: 10px;
+    }
+}
