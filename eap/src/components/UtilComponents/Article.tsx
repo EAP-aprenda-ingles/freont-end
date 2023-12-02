@@ -8,11 +8,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import comment from "../../../public/images/posts/comment.svg";
 import activeLike from "../../../public/images/posts/like-active.svg";
 import unactiveLike from "../../../public/images/posts/like-unactive.svg";
 import user from "../../../public/images/posts/user 1.svg";
 import styles from "../../../styles/UtilComponents/article.module.scss";
+import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 
 dayjs.locale(ptBr);
 
@@ -39,15 +41,24 @@ export default function Article({ post }: { post: article_type }) {
         setLiked((prevLiked) => !prevLiked);
         setServerPost({ ...serverPost, likes: response.data.likes });
         router.refresh();
+        toast.success("Post curtido com sucesso", {
+          style: {
+            backgroundColor: "#171717",
+          },
+        });
       }
     } catch (error) {
       console.error("Erro ao curtir o post:", error);
-      // Lógica de tratamento de erro, se necessário
+      toast.error("Erro ao curtir o post", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
     }
   };
-
   return (
     <div className={styles.post}>
+      <DefaultToastContainer />
       <div
         className={styles.authorArea}
         onClick={() => router.push(`/user/${serverPost.author.id}`)}

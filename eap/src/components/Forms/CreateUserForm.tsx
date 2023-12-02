@@ -6,10 +6,12 @@ import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import styles from "../../../styles/Forms/createuserform.module.scss";
 import DefaultInput from "../DefaultComponents/DefaultInput";
 import DefaultSelect from "../DefaultComponents/DefaultSelect";
 import DefaultTextarea from "../DefaultComponents/DefaultTextarea";
+import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 import { MediaPicker } from "../DefaultComponents/MediaPicker";
 
 type select_type = {
@@ -50,9 +52,14 @@ export default function CreateUserForm({
       description: formData.get("description"),
       isPublic: formData.get("isPublic") == null ? true : false,
     });
-    const { token } = response.data;
-    if (salvarTokenNoCookie(token)) {
-      router.push("/homepage");
+    if (response.status !== 200) {
+      toast.error(response.statusText);
+    } else {
+      const { token } = response.data;
+      if (salvarTokenNoCookie(token)) {
+        toast.success(response.statusText);
+        router.push("/homepage");
+      }
     }
   };
   const preferenceOptions = [];
@@ -72,6 +79,7 @@ export default function CreateUserForm({
   }
   return (
     <form onSubmit={handleCreateUser} className={styles.form}>
+      <DefaultToastContainer />
       <div className={styles.fieldsArea}>
         <DefaultInput label="Nome" name="name" type="text" />
         <DefaultInput label="E-mail" name="email" type="email" />
