@@ -120,15 +120,14 @@ export type user_type = {
 }
 export type user_to_update_type = {
     id: string,
-    preferences: {
-        id: number,
-        title: string,
-        icon: string
-    }[],
+    isPublic: boolean,
     profilePic: string,
     name: string,
     description: string,
-    classId: number,
+    school: {
+        id: number,
+        name: string
+    },
 }
 export type resumed_user_type = {
     id: string,

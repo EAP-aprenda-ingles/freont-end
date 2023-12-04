@@ -1,1 +1,62 @@
 @import "../globals.scss";
+.createUserForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // padding: 100px 1.5rem;
+    min-height: 100vh;
+
+    flex: 1;
+    .logoArea {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: $mainFont;
+
+        @media (min-width: $screenTablet) {
+            display: none;
+            width: 0;
+        }
+
+        h1 {
+            font-size: 45px;
+        }
+    }
+
+    form {
+        // height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        max-width: 300px;
+
+        .fieldsArea {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        button {
+            height: 55px;
+            width: 100%;
+            max-width: 290px;
+            border: 0;
+            padding: 10px 0;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: all ease 0.2s;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 18px;
+            background-color: $primaryColor;
+            color: white;
+            &:hover {
+                transform: translateY(-5px);
+            }
+        }
+    }
+}

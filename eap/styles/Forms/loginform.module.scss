@@ -35,6 +35,14 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+
+            .forgotPassword {
+                text-align: right;
+                transition: all ease 0.2s;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
         }
 
         .buttonsArea {

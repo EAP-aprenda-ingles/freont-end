@@ -1,7 +1,12 @@
 "use client";
 import { api } from "@/app/api";
 import { salvarTokenNoCookie } from "@/app/api/functions";
-import { prefernce_type, school_type, select_type } from "@/app/api/types";
+import {
+  prefernce_type,
+  school_type,
+  select_type,
+  user_to_update_type,
+} from "@/app/api/types";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { Camera } from "lucide-react";
 import Image from "next/image";
@@ -19,9 +24,13 @@ import { MediaPicker } from "../DefaultComponents/MediaPicker";
 export default function EditUser({
   preferences,
   schools,
+  user,
+  token,
 }: {
   preferences: prefernce_type[];
   schools: school_type[];
+  user: user_to_update_type;
+  token: string;
 }) {
   const [userPreferences, setUserPreferences] = useState<number[]>([]);
   const [userSchool, setUserSchool] = useState<number>();
@@ -30,8 +39,9 @@ export default function EditUser({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const fileToUpload = formData.get("coverUrl");
-    let profilePic = "";
-    if (fileToUpload) {
+    let profilePic = user.profilePic; // Default profile picture
+    console.log(fileToUpload);
+    if (fileToUpload && fileToUpload.name !== "") {
       const uploadFormData = new FormData();
       uploadFormData.set("file", fileToUpload);
       const uploadResponse = await api.post(
@@ -40,20 +50,38 @@ export default function EditUser({
       );
       profilePic = uploadResponse.data.fileURL;
     }
-    const response = await api.put("/users", {
-      profilePic,
-      name: formData.get("name"),
-      preferences: userPreferences,
-      school: userSchool,
-      description: formData.get("description"),
-      isPublic: formData.get("isPublic") == null ? true : false,
-    });
+
+    const response = await api.put(
+      `/users/${user.id}`,
+      {
+        profilePic,
+        name: formData.get("name"),
+        preferences: userPreferences,
+        school: userSchool,
+        description: formData.get("description"),
+        isPublic: formData.get("isPublic") == null ? true : false,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     if (response.status !== 200) {
-      toast.error(response.statusText);
+      toast.error("Erro ao editar usuário", {
+        style: {
+          backgroundColor: "#171717",
+        },
+      });
     } else {
       const { token } = response.data;
       if (salvarTokenNoCookie(token)) {
-        toast.success(response.statusText);
+        toast.success("Sucesso ao editar usuário", {
+          style: {
+            backgroundColor: "#171717",
+          },
+        });
         router.push("/homepage");
       }
     }
@@ -81,7 +109,12 @@ export default function EditUser({
       <form onSubmit={handleCreateUser} className={styles.form}>
         <DefaultToastContainer />
         <div className={styles.fieldsArea}>
-          <DefaultInput label="Nome" name="name" type="text" />
+          <DefaultInput
+            defaultValue={user.name}
+            label="Nome"
+            name="name"
+            type="text"
+          />
           <DefaultSelect
             onChange={(e: select_type[]) => {
               let values: number[] = [];
@@ -105,7 +138,7 @@ export default function EditUser({
             isMulti={false}
           />
           <div className={styles.profilePic}>
-            <MediaPicker />
+            <MediaPicker defaultValue={user.profilePic} />
             <label htmlFor="media">
               <Camera /> Adicionar imagem de perfil
             </label>
@@ -129,10 +162,16 @@ export default function EditUser({
                 }}
               />
             }
+            defaultChecked={user.isPublic}
             label="Manter minha conta privada"
           />
-          <DefaultTextarea name="description" label="Descrição" rows={10} />
-          <button type="submit">Criar Conta</button>
+          <DefaultTextarea
+            name="description"
+            defaultValue={user.description}
+            label="Descrição"
+            rows={10}
+          />
+          <button type="submit">Editar Conta</button>
         </div>
       </form>
     </section>

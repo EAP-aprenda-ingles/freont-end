@@ -2,6 +2,7 @@
 import { api } from "@/app/api";
 import { salvarTokenNoCookie } from "@/app/api/functions";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { toast } from "react-toastify";
@@ -65,6 +66,9 @@ export default function LoginForm() {
             required
             label="Senha"
           />
+          <div className={styles.forgotPassword}>
+            <Link href="/forgot-password">Esqueci a senha</Link>
+          </div>
         </div>
 
         <div className={styles.buttonsArea}>
