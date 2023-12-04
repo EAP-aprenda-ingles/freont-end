@@ -3,8 +3,8 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import bookmark from "../../../public/images/footer/bookmark.svg";
 import unactiveHome from "../../../public/images/footer/home-unactive.svg";
-import messageUnactive from "../../../public/images/footer/message-square.svg";
 import unactivePost from "../../../public/images/footer/post-unactive.svg";
 import unactiveSearch from "../../../public/images/footer/search-unactive.svg";
 import logo from "../../../public/logo-sem-fundo.png";
@@ -55,15 +55,15 @@ export default async function Footer() {
         />
         <span className={styles.topicName}>Adic. artigo</span>
       </Link>
-      <Link href="/message">
+      <Link href="/reading-techniques">
         <Image
-          src={messageUnactive}
+          src={bookmark}
           width={25}
           height={25}
           quality={100}
-          alt="message"
+          alt="reading-techniques"
         />
-        <span className={styles.topicName}>Chat</span>
+        <span className={styles.topicName}>Téc. de Leitura</span>
       </Link>
       <UserProfilePic
         image={decodedToken.profilePic}

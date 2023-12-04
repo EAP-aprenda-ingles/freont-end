@@ -30,8 +30,8 @@ export default async function ForgotPasswordPage() {
             </p>
           </Link>
           <span>
-            Desbrave Horizontes: A Revolucionária Plataforma que Fará Você se
-            Apaixonar pelo Inglês!
+            Desbrave Horizontes: Aprenda inglês lendo artigos acadêmicos na sua
+            área de estudo
           </span>
         </div>
       </div>

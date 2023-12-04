@@ -1,0 +1,21 @@
+@import "../globals.scss";
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    font-family: $mainFont;
+    @media (min-width: $screenTablet) {
+        margin-left: 250px;
+        width: calc(100vw - 250px);
+        padding: 20px;
+    }
+
+    .content {
+        display: flex;
+
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

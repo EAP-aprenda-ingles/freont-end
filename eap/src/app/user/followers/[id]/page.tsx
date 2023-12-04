@@ -4,6 +4,7 @@ import FollowingAndFollowersHeader from "@/components/DefaultComponents/Follower
 import FollowersAndFollowingSearch from "@/components/DefaultComponents/FollowersAndFollowingSearch";
 import Footer from "@/components/DefaultComponents/Footer";
 import { cookies } from "next/headers";
+import styles from "../../../../../styles/Pages/follows.module.scss";
 
 export default async function FollowersPage({
   params,
@@ -19,7 +20,7 @@ export default async function FollowersPage({
   });
   const user: user_type = response.data;
   return (
-    <main>
+    <main className={styles.main}>
       <FollowingAndFollowersHeader
         userName={user.name}
         followers={user.followers}
