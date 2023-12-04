@@ -1,6 +1,7 @@
 "use client";
 import { api } from "@/app/api";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import styles from "../../../../styles/UtilComponents/buttons/button.module.scss";
 export default function RequestToFollow({
   userId,
@@ -12,9 +13,10 @@ export default function RequestToFollow({
   requestedToFollow: boolean;
 }) {
   const router = useRouter();
+  const [rTF, sRTF] = useState<boolean>(requestedToFollow);
   return (
     <button
-      style={requestedToFollow ? { backgroundColor: "#171717" } : {}}
+      style={rTF ? { backgroundColor: "#171717" } : {}}
       className={styles.button}
       type="button"
       onClick={async () => {
@@ -30,11 +32,12 @@ export default function RequestToFollow({
           }
         );
         if (response.status === 200 || response.status === 201) {
+          sRTF(response.data.followee);
           router.refresh();
         }
       }}
     >
-      {requestedToFollow ? "Solicitado" : "Solicitar para seguir"}
+      {rTF ? "Solicitado" : "Solicitar para seguir"}
     </button>
   );
 }
