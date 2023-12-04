@@ -1,6 +1,6 @@
 @import "../globals.scss";
 .text {
-    width: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,8 +11,8 @@
         // text-align: center;
         padding: 20px;
     }
-    div {
-        div {
+    .paragraphsList {
+        .paragraph {
             width: fit-content;
             p {
                 width: fit-content;

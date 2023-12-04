@@ -1,4 +1,5 @@
 import DefaultToastContainer from "@/components/DefaultComponents/DefaultToastContainer";
+import EdiLoginForm from "@/components/Forms/ForgotPasswordForm";
 import LoginForm from "@/components/Forms/LoginForm";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,7 +36,7 @@ export default async function ForgotPasswordPage() {
         </div>
       </div>
       <DefaultToastContainer />
-      <LoginForm />
+      <EdiLoginForm />
     </main>
   );
 }

@@ -1,13 +1,11 @@
 "use client";
 import { api } from "@/app/api";
-import { category_type, select_type, word_type } from "@/app/api/types";
+import { category_type, word_type } from "@/app/api/types";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import styles from "../../../styles/UtilComponents/selectabletsxt.module.scss";
-import DefaultButton from "../DefaultComponents/DefaultButton";
-import DefaultSelect from "../DefaultComponents/DefaultSelect";
 import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 import PopUp from "../DefaultComponents/PopUp";
 import SecondarySelect from "../DefaultComponents/SecondarySelect";
@@ -28,14 +26,16 @@ export default function SelectableText({
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [wordsList, setWordsList] = useState<word_type[]>(toHighlight);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [wordLine, setWordLine] = useState<number>(0);
   const router = useRouter();
 
-  const handleDoubleClick = () => {
+  const handleDoubleClick = (lineNumber: number) => {
     const selectedText = window.getSelection()?.toString().trim();
-
+    console.log(lineNumber);
     if (selectedText) {
       setSelectedWord(selectedText);
       setShowPopUp(true);
+      setWordLine(lineNumber);
     }
   };
 
@@ -55,11 +55,13 @@ export default function SelectableText({
         }
       );
 
-      toast.success("Alterações salvas com sucesso!", {
-        style: {
-          backgroundColor: "#171717",
-        },
-      });
+      if (response.status === 200 || response.status === 201) {
+        toast.success("Alterações salvas com sucesso!", {
+          style: {
+            backgroundColor: "#171717",
+          },
+        });
+      }
     } catch (error) {
       toast.error("Erro ao salvar as alterações", {
         style: {
@@ -104,25 +106,26 @@ export default function SelectableText({
     });
   }
 
-  const getWordsInParagraph = (paragraph: string) => {
-    return wordsList.filter((word) => paragraph.includes(word.word));
+  const getWordsInParagraph = (paragraph: string, lineNumber: number) => {
+    return wordsList.filter((word) => word.line === lineNumber);
   };
 
   return (
     <div className={styles.text}>
-      <div>
+      <div className={styles.paragraphsList}>
         <DefaultToastContainer />
         {text.map((paragraph, index) => (
-          <div key={index}>
+          <div className={styles.paragraph} key={index}>
             <p
-              onDoubleClick={handleDoubleClick}
-              onCopy={handleDoubleClick}
-              onFocus={handleDoubleClick}
+              onDoubleClick={() => handleDoubleClick(index)}
+              onCopy={() => handleDoubleClick(index)}
+              onFocus={() => handleDoubleClick(index)}
             >
               <Highlight
                 text={paragraph}
-                toHighlight={getWordsInParagraph(paragraph)}
+                toHighlight={getWordsInParagraph(paragraph, index)}
                 key={index}
+                line={index}
               />
             </p>
           </div>
@@ -161,30 +164,36 @@ export default function SelectableText({
             )}
 
             <button
-              onClick={(e) => {
+              onClick={() => {
                 if (selectedCategory && selectedWord) {
                   const words = selectedWord.split(" ");
                   let newWordsList = [...wordsList];
+
                   if (words.length > 1) {
                     for (const word of words) {
-                      if (word !== " ") {
+                      if (word.trim() !== "") {
+                        // Verifica se a palavra já existe na lista de palavras destacadas
                         const existingWordIndex = newWordsList.findIndex(
-                          (w) => w.word === word
+                          (w) => w.word === word && w.line === wordLine
                         );
+
                         if (existingWordIndex !== -1) {
+                          // Se a palavra já existe na lista com a mesma linha, atualiza apenas a categoria
                           newWordsList[existingWordIndex].category =
                             categories[selectedCategory - 1];
                         } else {
+                          // Se a palavra não existe na lista, adiciona à lista com a categoria selecionada e linha correspondente
                           newWordsList.push({
                             category: categories[selectedCategory - 1],
                             word: word,
+                            line: wordLine,
                           });
                         }
                       }
                     }
                   } else {
                     const existingWordIndex = newWordsList.findIndex(
-                      (w) => w.word === selectedWord
+                      (w) => w.word === selectedWord && w.line === wordLine
                     );
                     if (existingWordIndex !== -1) {
                       newWordsList[existingWordIndex].category =
@@ -193,6 +202,7 @@ export default function SelectableText({
                       newWordsList.push({
                         category: categories[selectedCategory - 1],
                         word: selectedWord,
+                        line: wordLine,
                       });
                     }
                   }

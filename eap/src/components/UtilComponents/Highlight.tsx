@@ -2,10 +2,11 @@ import { word_type } from "@/app/api/types";
 import React from "react";
 import styles from "../../../styles/UtilComponents/highligh.module.scss";
 
-const Highlight: React.FC<{ text: string; toHighlight: word_type[] }> = ({
-  text,
-  toHighlight,
-}) => {
+const Highlight: React.FC<{
+  text: string;
+  toHighlight: word_type[];
+  line: number;
+}> = ({ text, toHighlight, line }) => {
   const words = text.split(/(\s+)/);
 
   return (
@@ -17,7 +18,9 @@ const Highlight: React.FC<{ text: string; toHighlight: word_type[] }> = ({
 
         return (
           <React.Fragment key={index}>
-            {highlightedWord && highlightedWord.word !== " " ? (
+            {highlightedWord &&
+            highlightedWord.word !== " " &&
+            highlightedWord.line === line ? (
               <mark
                 className={
                   highlightedWord.category.id === 1
