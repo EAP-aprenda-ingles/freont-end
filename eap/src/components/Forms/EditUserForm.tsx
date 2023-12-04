@@ -1,26 +1,22 @@
 "use client";
 import { api } from "@/app/api";
 import { salvarTokenNoCookie } from "@/app/api/functions";
-import { prefernce_type, school_type } from "@/app/api/types";
-import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { prefernce_type, school_type, select_type } from "@/app/api/types";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { Camera } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import logo from "../../../public/logo-sem-fundo.png";
-import styles from "../../../styles/Forms/createuserform.module.scss";
+import styles from "../../../styles/Forms/edituserform.module.scss";
 import DefaultInput from "../DefaultComponents/DefaultInput";
 import DefaultSelect from "../DefaultComponents/DefaultSelect";
 import DefaultTextarea from "../DefaultComponents/DefaultTextarea";
 import DefaultToastContainer from "../DefaultComponents/DefaultToastContainer";
 import { MediaPicker } from "../DefaultComponents/MediaPicker";
 
-type select_type = {
-  label: string;
-  value: number;
-};
-export default function CreateUserForm({
+export default function EditUser({
   preferences,
   schools,
 }: {
@@ -44,11 +40,9 @@ export default function CreateUserForm({
       );
       profilePic = uploadResponse.data.fileURL;
     }
-    const response = await api.post("/users", {
+    const response = await api.put("/users", {
       profilePic,
       name: formData.get("name"),
-      login: formData.get("email"),
-      password: formData.get("password"),
       preferences: userPreferences,
       school: userSchool,
       description: formData.get("description"),
@@ -88,8 +82,6 @@ export default function CreateUserForm({
         <DefaultToastContainer />
         <div className={styles.fieldsArea}>
           <DefaultInput label="Nome" name="name" type="text" />
-          <DefaultInput label="E-mail" name="email" type="email" />
-          <DefaultInput label="Senha" name="password" type="password" />
           <DefaultSelect
             onChange={(e: select_type[]) => {
               let values: number[] = [];

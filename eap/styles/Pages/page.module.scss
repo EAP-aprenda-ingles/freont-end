@@ -7,6 +7,10 @@
     // padding: 100px 1.5rem;
     min-height: 100vh;
 
+    @media (min-width: $screenTablet) {
+        overflow-y: hidden;
+    }
+
     .backgroundImage {
         flex: 1;
         max-width: 50vw;
@@ -35,12 +39,40 @@
             height: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+            color: $backgroundColor;
+            font-family: $secondaryFont;
 
-            img {
-                width: 100px;
-                height: 100px;
-                border-radius: 5px;
+            .top {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                color: $backgroundColor;
+                gap: 15px;
+                img {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 5px;
+                }
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 28px;
+
+                    .eap {
+                        font-size: 52px;
+                    }
+                }
+            }
+            span {
+                font-size: 28px;
+                text-align: center;
+                max-width: 350px;
             }
         }
     }

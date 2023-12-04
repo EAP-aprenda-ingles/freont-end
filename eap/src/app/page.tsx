@@ -1,5 +1,4 @@
 import DefaultToastContainer from "@/components/DefaultComponents/DefaultToastContainer";
-
 import LoginForm from "@/components/Forms/LoginForm";
 import Image from "next/image";
 import logo from "../../public/logo.png";
@@ -14,18 +13,27 @@ export default async function Login() {
       <div className={styles.backgroundImage}>
         <img src={backgroundImage} alt="Freepik-image" />
         <div className={styles.leftPartContent}>
-          <Image
-            className={styles.mainImage}
-            src={logo}
-            alt="EAP"
-            quality={100}
-            width={75}
-            height={75}
-          />
+          <div className={styles.top}>
+            <Image
+              className={styles.mainImage}
+              src={logo}
+              alt="EAP"
+              quality={100}
+              width={75}
+              height={75}
+            />
+            <p>
+              <span>Bem-Vindo(a) ao</span>
+              <span className={styles.eap}>EAP</span>
+            </p>
+          </div>
+          <span>
+            Desbrave Horizontes: A Revolucionária Plataforma que Fará Você se
+            Apaixonar pelo Inglês!
+          </span>
         </div>
       </div>
       <DefaultToastContainer />
-
       <LoginForm />
     </main>
   );

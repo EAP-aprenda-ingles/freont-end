@@ -1,7 +1,7 @@
 import CreateUserForm from "@/components/Forms/CreateUserForm";
 import Image from "next/image";
-import logo from "../../../public/logo-sem-fundo.png";
-import styles from "../../../styles/Pages/register.module.scss";
+import logo from "../../../public/logo.png";
+import styles from "../../../styles/Pages/page.module.scss";
 import { api } from "../api";
 import { prefernce_type, school_type } from "../api/types";
 export default async function Register() {
@@ -11,17 +11,33 @@ export default async function Register() {
   const preferencesResponse = await api.get("/preferences");
   const preferences: prefernce_type[] = preferencesResponse.data;
 
+  const response = await api.get("/background");
+  const { backgroundImage } = response.data;
+
   return (
     <main className={styles.main}>
-      <div className={styles.logo}>
-        <Image
-          src={logo}
-          alt="logo"
-          width={60}
-          height={60}
-          quality={100}
-          placeholder="blur"
-        />
+      <div className={styles.backgroundImage}>
+        <img src={backgroundImage} alt="Freepik-image" />
+        <div className={styles.leftPartContent}>
+          <div className={styles.top}>
+            <Image
+              className={styles.mainImage}
+              src={logo}
+              alt="EAP"
+              quality={100}
+              width={75}
+              height={75}
+            />
+            <p>
+              <span>Bem-Vindo(a) ao</span>
+              <span className={styles.eap}>EAP</span>
+            </p>
+          </div>
+          <span>
+            Desbrave Horizontes: A Revolucionária Plataforma que Fará Você se
+            Apaixonar pelo Inglês!
+          </span>
+        </div>
       </div>
       <CreateUserForm preferences={preferences} schools={schools} />
     </main>

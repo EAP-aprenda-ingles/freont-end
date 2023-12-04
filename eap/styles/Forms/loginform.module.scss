@@ -15,6 +15,11 @@
         justify-content: center;
         font-family: $mainFont;
 
+        @media (min-width: $screenTablet) {
+            display: none;
+            width: 0;
+        }
+
         h1 {
             font-size: 45px;
         }
