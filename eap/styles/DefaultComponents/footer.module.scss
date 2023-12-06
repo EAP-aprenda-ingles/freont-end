@@ -44,8 +44,7 @@
             align-items: center;
             justify-content: start;
         }
-        span,
-        nobr {
+        span {
             font-family: $mainFont;
             @media (max-width: $screenTablet) {
                 display: none;
@@ -69,8 +68,9 @@
                 height: 60px;
             }
         }
-        nobr {
+        span {
             font-size: 14px;
+            white-space: nowrap;
         }
     }
 }

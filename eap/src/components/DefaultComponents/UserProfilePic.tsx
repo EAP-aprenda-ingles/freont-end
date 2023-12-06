@@ -35,9 +35,9 @@ export default function UserProfilePic({
               }
         }
       />
-      <nobr>
+      <span>
         <strong>{userName}</strong>
-      </nobr>
+      </span>
     </Link>
   );
 }

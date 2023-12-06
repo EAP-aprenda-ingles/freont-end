@@ -38,10 +38,10 @@ export default function EditUser({
   const handleCreateUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const fileToUpload = formData.get("coverUrl");
+    const fileToUpload: FormDataEntryValue | null = formData.get("coverUrl");
     let profilePic = user.profilePic; // Default profile picture
     console.log(fileToUpload);
-    if (fileToUpload && fileToUpload.name !== "") {
+    if (fileToUpload instanceof File && fileToUpload.name !== "") {
       const uploadFormData = new FormData();
       uploadFormData.set("file", fileToUpload);
       const uploadResponse = await api.post(
