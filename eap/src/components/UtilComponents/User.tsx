@@ -87,7 +87,7 @@ export default async function User({ id }: { id: string }) {
           {decodedToken.sub === user.id ? (
             <Others
               text="Compartilhar"
-              url={`http://192.168.2.17:3000/user/${user.id}`}
+              url={`http://localhost:3000/user/${user.id}`}
             />
           ) : (
             <Others text="Mensagem" url={`/message/${user.id}`} />
