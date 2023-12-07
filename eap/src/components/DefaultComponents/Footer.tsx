@@ -25,6 +25,11 @@ export default async function Footer() {
       {/* <div>
         
       </div> */}
+      <UserProfilePic
+        image={decodedToken.profilePic}
+        userId={decodedToken.sub}
+        userName={decodedToken.name}
+      />
       <Link href="/homepage">
         <Image
           src={unactiveHome}
@@ -65,11 +70,6 @@ export default async function Footer() {
         />
         <span className={styles.topicName}>Téc. de Leitura</span>
       </Link>
-      <UserProfilePic
-        image={decodedToken.profilePic}
-        userId={decodedToken.sub}
-        userName={decodedToken.name}
-      />
     </footer>
   );
 }

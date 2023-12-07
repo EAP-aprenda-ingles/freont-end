@@ -33,10 +33,7 @@ export default async function Register() {
               <span className={styles.eap}>EAP</span>
             </p>
           </div>
-          <span>
-            Desbrave Horizontes: Aprenda inglês lendo artigos acadêmicos na sua
-            área de estudo
-          </span>
+          <span />
         </div>
       </div>
       <CreateUserForm preferences={preferences} schools={schools} />

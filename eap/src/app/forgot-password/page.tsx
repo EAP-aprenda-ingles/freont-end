@@ -29,10 +29,7 @@ export default async function ForgotPasswordPage() {
               <span className={styles.eap}>EAP</span>
             </p>
           </Link>
-          <span>
-            Desbrave Horizontes: Aprenda inglês lendo artigos acadêmicos na sua
-            área de estudo
-          </span>
+          <span />
         </div>
       </div>
       <DefaultToastContainer />

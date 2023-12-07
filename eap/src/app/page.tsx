@@ -27,10 +27,7 @@ export default async function Login() {
               <span className={styles.eap}>EAP</span>
             </p>
           </div>
-          <span>
-            Desbrave Horizontes: Aprenda inglês lendo artigos acadêmicos na sua
-            área de estudo
-          </span>
+          <span />
         </div>
       </div>
       <DefaultToastContainer />

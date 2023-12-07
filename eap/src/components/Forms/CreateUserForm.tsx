@@ -99,7 +99,7 @@ export default function CreateUserForm({
               setUserPreferences(values);
             }}
             name="preferences"
-            placeholder="Preferências"
+            placeholder="Interesses"
             options={preferenceOptions}
             isMulti
           />

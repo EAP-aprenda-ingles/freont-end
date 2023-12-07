@@ -124,7 +124,7 @@ export default function EditUser({
               setUserPreferences(values);
             }}
             name="preferences"
-            placeholder="Preferências"
+            placeholder="Interesses"
             options={preferenceOptions}
             isMulti
           />

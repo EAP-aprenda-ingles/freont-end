@@ -60,7 +60,7 @@ export default async function User({ id }: { id: string }) {
         </div>
 
         <div className={styles.userPreferences}>
-          <h3>Preferências</h3>
+          <h3>Interesses</h3>
           <div className={styles.preferencesList}>
             {user.preferences.map((preference) => (
               <Preference preference={preference} />
