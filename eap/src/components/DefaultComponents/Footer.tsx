@@ -9,6 +9,7 @@ import unactivePost from "../../../public/images/footer/post-unactive.svg";
 import unactiveSearch from "../../../public/images/footer/search-unactive.svg";
 import logo from "../../../public/logo-sem-fundo.png";
 import styles from "../../../styles/DefaultComponents/footer.module.scss";
+import DesktopUserProfilePic from "./DesktopUserProfilePic";
 import UserProfilePic from "./UserProfilePic";
 export default async function Footer() {
   const token = cookies().get("user_token")?.value;
@@ -25,7 +26,7 @@ export default async function Footer() {
       {/* <div>
         
       </div> */}
-      <UserProfilePic
+      <DesktopUserProfilePic
         image={decodedToken.profilePic}
         userId={decodedToken.sub}
         userName={decodedToken.name}
@@ -70,6 +71,11 @@ export default async function Footer() {
         />
         <span className={styles.topicName}>Téc. de Leitura</span>
       </Link>
+      <UserProfilePic
+        image={decodedToken.profilePic}
+        userId={decodedToken.sub}
+        userName={decodedToken.name}
+      />
     </footer>
   );
 }

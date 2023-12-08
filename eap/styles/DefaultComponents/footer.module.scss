@@ -53,12 +53,14 @@
         }
     }
 
-    .profilePic {
+    .profilePic,
+    .desktopProfilePic {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 10px;
+        transition: all ease 0.2s;
         img {
             border-radius: 50%;
             aspect-ratio: "1/1";
@@ -71,6 +73,19 @@
         span {
             font-size: 14px;
             white-space: nowrap;
+        }
+    }
+    .profilePic {
+        @media (min-width: $screenTablet) {
+            display: none;
+            width: 0;
+        }
+    }
+
+    .desktopProfilePic {
+        @media (max-width: $screenTablet) {
+            display: none;
+            width: 0;
         }
     }
 }
