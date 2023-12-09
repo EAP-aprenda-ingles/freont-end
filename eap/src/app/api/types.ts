@@ -164,7 +164,8 @@ export type word_type = {
         color: string,
         id: number
     },
-    line: number
+    line: number,
+    position: number[],
 };
 
 export type category_type = {

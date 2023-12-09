@@ -11,6 +11,11 @@ import PopUp from "../DefaultComponents/PopUp";
 import SecondarySelect from "../DefaultComponents/SecondarySelect";
 import Highlight from "./Highlight";
 
+type word_position_type = {
+  start: number;
+  end: number;
+};
+
 export default function SelectableText({
   text,
   toHighlight,
@@ -27,15 +32,32 @@ export default function SelectableText({
   const [wordsList, setWordsList] = useState<word_type[]>(toHighlight);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [wordLine, setWordLine] = useState<number>(0);
+  const [wordPosition, setWordPosition] = useState<word_position_type>({
+    start: 0,
+    end: 0,
+  });
   const router = useRouter();
 
   const handleDoubleClick = (lineNumber: number) => {
     const selectedText = window.getSelection()?.toString().trim();
-    console.log(lineNumber);
+
     if (selectedText) {
-      setSelectedWord(selectedText);
-      setShowPopUp(true);
-      setWordLine(lineNumber);
+      const line = text[lineNumber];
+      const wordsInLine = line.split(" ");
+      let position = 0;
+      for (let i = 0; i < wordsInLine.length; i++) {
+        const word = wordsInLine[i];
+        if (word === selectedText) {
+          const wordStart = line.indexOf(word, position);
+          const wordEnd = wordStart + word.length;
+          setWordPosition({ start: wordStart, end: wordEnd });
+          setSelectedWord(selectedText);
+          setShowPopUp(true);
+          setWordLine(lineNumber);
+          break;
+        }
+        position += word.length + 1; // +1 para considerar o espaço
+      }
     }
   };
 
@@ -106,7 +128,7 @@ export default function SelectableText({
     });
   }
 
-  const getWordsInParagraph = (paragraph: string, lineNumber: number) => {
+  const getWordsInParagraph = (lineNumber: number) => {
     return wordsList.filter((word) => word.line === lineNumber);
   };
 
@@ -123,7 +145,7 @@ export default function SelectableText({
             >
               <Highlight
                 text={paragraph}
-                toHighlight={getWordsInParagraph(paragraph, index)}
+                toHighlight={getWordsInParagraph(index)}
                 key={index}
                 line={index}
               />
@@ -187,6 +209,7 @@ export default function SelectableText({
                             category: categories[selectedCategory - 1],
                             word: word,
                             line: wordLine,
+                            position: [wordPosition.start, wordPosition.end],
                           });
                         }
                       }
@@ -203,6 +226,7 @@ export default function SelectableText({
                         category: categories[selectedCategory - 1],
                         word: selectedWord,
                         line: wordLine,
+                        position: [wordPosition.start, wordPosition.end],
                       });
                     }
                   }
