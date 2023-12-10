@@ -7,6 +7,7 @@ import Cookie from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUrl } from "nextjs-current-url";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import comment from "../../../public/images/posts/comment.svg";
@@ -59,6 +60,8 @@ export default function Article({ post }: { post: article_type }) {
       });
     }
   };
+
+  const { href: currentUrl, pathname } = useUrl() ?? {};
   return (
     <div className={styles.post}>
       <DefaultToastContainer />
@@ -82,7 +85,13 @@ export default function Article({ post }: { post: article_type }) {
           </span>
         </div>
       </div>
-      <Link href={`/article/${serverPost.id}`}>
+      <Link
+        href={
+          String(currentUrl).match("/article/")
+            ? `/article/author/${serverPost.id}`
+            : `/article/${serverPost.id}`
+        }
+      >
         <span className={styles.postTitle}>
           <h3>{serverPost.title}</h3>
         </span>
