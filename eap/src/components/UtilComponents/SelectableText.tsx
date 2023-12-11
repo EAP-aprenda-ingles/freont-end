@@ -98,34 +98,20 @@ export default function SelectableText({
       });
     }
   };
+  const getWordsInParagraph = (lineNumber: number) => {
+    return wordsList.filter((word) => word.line === lineNumber);
+  };
 
   const categoryOptions = categories.map((category) => ({
     value: category.id,
     label: category.category,
   }));
 
-  let textWithIndex: { word: string; index: number }[][] = [];
-  text.forEach((paragraph, index) => {
-    const words = paragraph.split(" ");
-    let wordsInParagraph: { word: string; index: number }[] = [];
-    words.forEach((word, index) => {
-      wordsInParagraph.push({
-        word: word,
-        index: index,
-      });
-    });
-    textWithIndex.push(wordsInParagraph);
-  });
-
-  const getWordsInParagraph = (lineNumber: number) => {
-    return wordsList.filter((word) => word.line === lineNumber);
-  };
-
   return (
     <div className={styles.text}>
       <div className={styles.paragraphsList}>
         <DefaultToastContainer />
-        {textWithIndex.map((paragraph, index) => (
+        {text.map((paragraph, index) => (
           <div className={styles.paragraph} key={index}>
             <p
               onDoubleClick={(e) =>
@@ -135,7 +121,7 @@ export default function SelectableText({
               onFocus={(e) => handleDoubleClick(index, Number(e.target.id))}
             >
               <Highlight
-                text={paragraph.map((wordObj) => wordObj.word).join(" ")}
+                text={paragraph}
                 toHighlight={getWordsInParagraph(index)}
                 key={index}
                 line={index}
