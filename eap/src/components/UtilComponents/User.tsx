@@ -87,7 +87,7 @@ export default async function User({ id }: { id: string }) {
           {decodedToken.sub === user.id ? (
             <Others
               text="Compartilhar"
-              url={`http://localhost:3000/user/${user.id}`}
+              url={`https://eap.krafti.com.br/user/${user.id}`}
             />
           ) : (
             <Others text="Mensagem" url={`/message/${user.id}`} />

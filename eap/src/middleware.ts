@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const signInUrl = `http://localhost:3000`;
+const signInUrl = `https://eap.krafti.com.br/`;
 
 export function middleware(request: NextRequest) {
     const token = request.cookies.get('user_token')?.value;

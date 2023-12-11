@@ -7,7 +7,7 @@ const  nextConfig  = {
 		includePaths: [path.join(__dirname, 'styles')],
 	},
 	images: {
-		domains: ['192.168.2.17'],
+		domains: ['192.168.2.17', 'eap.krafti.com.br', 'eap-back.krtic.com.br'],
 	},
 	// distDir: 'build',
 	
