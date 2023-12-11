@@ -11,11 +11,6 @@ import PopUp from "../DefaultComponents/PopUp";
 import SecondarySelect from "../DefaultComponents/SecondarySelect";
 import Highlight from "./Highlight";
 
-type word_position_type = {
-  start: number;
-  end: number;
-};
-
 export default function SelectableText({
   text,
   toHighlight,
@@ -32,32 +27,16 @@ export default function SelectableText({
   const [wordsList, setWordsList] = useState<word_type[]>(toHighlight);
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [wordLine, setWordLine] = useState<number>(0);
-  const [wordPosition, setWordPosition] = useState<word_position_type>({
-    start: 0,
-    end: 0,
-  });
+  const [wordPosition, setWordPosition] = useState<number>(0);
   const router = useRouter();
 
-  const handleDoubleClick = (lineNumber: number) => {
+  const handleDoubleClick = (lineNumber: number, wordIndex: number) => {
     const selectedText = window.getSelection()?.toString().trim();
-
     if (selectedText) {
-      const line = text[lineNumber];
-      const wordsInLine = line.split(" ");
-      let position = 0;
-      for (let i = 0; i < wordsInLine.length; i++) {
-        const word = wordsInLine[i];
-        if (word === selectedText) {
-          const wordStart = line.indexOf(word, position);
-          const wordEnd = wordStart + word.length;
-          setWordPosition({ start: wordStart, end: wordEnd });
-          setSelectedWord(selectedText);
-          setShowPopUp(true);
-          setWordLine(lineNumber);
-          break;
-        }
-        position += word.length + 1; // +1 para considerar o espaço
-      }
+      setWordPosition(wordIndex);
+      setSelectedWord(selectedText);
+      setWordLine(lineNumber);
+      setShowPopUp(true);
     }
   };
 
@@ -120,13 +99,23 @@ export default function SelectableText({
     }
   };
 
-  const categoryOptions = [];
-  for (const category of categories) {
-    categoryOptions.push({
-      value: category.id,
-      label: category.category,
+  const categoryOptions = categories.map((category) => ({
+    value: category.id,
+    label: category.category,
+  }));
+
+  let textWithIndex: { word: string; index: number }[][] = [];
+  text.forEach((paragraph, index) => {
+    const words = paragraph.split(" ");
+    let wordsInParagraph: { word: string; index: number }[] = [];
+    words.forEach((word, index) => {
+      wordsInParagraph.push({
+        word: word,
+        index: index,
+      });
     });
-  }
+    textWithIndex.push(wordsInParagraph);
+  });
 
   const getWordsInParagraph = (lineNumber: number) => {
     return wordsList.filter((word) => word.line === lineNumber);
@@ -136,15 +125,17 @@ export default function SelectableText({
     <div className={styles.text}>
       <div className={styles.paragraphsList}>
         <DefaultToastContainer />
-        {text.map((paragraph, index) => (
+        {textWithIndex.map((paragraph, index) => (
           <div className={styles.paragraph} key={index}>
             <p
-              onDoubleClick={() => handleDoubleClick(index)}
-              onCopy={() => handleDoubleClick(index)}
-              onFocus={() => handleDoubleClick(index)}
+              onDoubleClick={(e) =>
+                handleDoubleClick(index, Number(e.target.id))
+              }
+              onCopy={(e) => handleDoubleClick(index, Number(e.target.id))}
+              onFocus={(e) => handleDoubleClick(index, Number(e.target.id))}
             >
               <Highlight
-                text={paragraph}
+                text={paragraph.map((wordObj) => wordObj.word).join(" ")}
                 toHighlight={getWordsInParagraph(index)}
                 key={index}
                 line={index}
@@ -173,13 +164,11 @@ export default function SelectableText({
               <option value={0} unselectable="on">
                 Escolha uma categoria
               </option>
-              {categories.map((category) => {
-                return (
-                  <option value={category.id} key={category.id}>
-                    {category.category}
-                  </option>
-                );
-              })}
+              {categoryOptions.map((category) => (
+                <option value={category.value} key={category.value}>
+                  {category.label}
+                </option>
+              ))}
             </SecondarySelect>
             {selectedCategory !== 0 && (
               <span>{categories[selectedCategory - 1].description}</span>
@@ -192,31 +181,36 @@ export default function SelectableText({
                   let newWordsList = [...wordsList];
 
                   if (words.length > 1) {
+                    let counter = wordPosition;
                     for (const word of words) {
                       if (word.trim() !== "") {
-                        // Verifica se a palavra já existe na lista de palavras destacadas
                         const existingWordIndex = newWordsList.findIndex(
-                          (w) => w.word === word && w.line === wordLine
+                          (w) =>
+                            w.word === word &&
+                            w.line === wordLine &&
+                            w.position === counter
                         );
 
                         if (existingWordIndex !== -1) {
-                          // Se a palavra já existe na lista com a mesma linha, atualiza apenas a categoria
                           newWordsList[existingWordIndex].category =
                             categories[selectedCategory - 1];
                         } else {
-                          // Se a palavra não existe na lista, adiciona à lista com a categoria selecionada e linha correspondente
                           newWordsList.push({
                             category: categories[selectedCategory - 1],
                             word: word,
                             line: wordLine,
-                            position: [wordPosition.start, wordPosition.end],
+                            position: counter, // Armazenar a posição da palavra corretamente
                           });
                         }
                       }
+                      counter += 2;
                     }
                   } else {
                     const existingWordIndex = newWordsList.findIndex(
-                      (w) => w.word === selectedWord && w.line === wordLine
+                      (w) =>
+                        w.word === selectedWord &&
+                        w.line === wordLine &&
+                        w.position === wordPosition
                     );
                     if (existingWordIndex !== -1) {
                       newWordsList[existingWordIndex].category =
@@ -226,7 +220,7 @@ export default function SelectableText({
                         category: categories[selectedCategory - 1],
                         word: selectedWord,
                         line: wordLine,
-                        position: [wordPosition.start, wordPosition.end],
+                        position: wordPosition,
                       });
                     }
                   }

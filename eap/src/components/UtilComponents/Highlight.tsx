@@ -13,15 +13,19 @@ const Highlight: React.FC<{
     <>
       {words.map((word, index) => {
         const highlightedWord = toHighlight.find(
-          (item) => item.word.toLowerCase().trim() === word.toLowerCase().trim()
+          (item) =>
+            item.word.toLowerCase().trim() === word.toLowerCase().trim() &&
+            item.position == index
         );
 
         return (
           <React.Fragment key={index}>
             {highlightedWord &&
             highlightedWord.word !== " " &&
-            highlightedWord.line === line ? (
+            highlightedWord.line === line &&
+            highlightedWord.position == index ? (
               <mark
+                id={index.toString()}
                 className={
                   highlightedWord.category.id === 1
                     ? styles.cognate
@@ -39,7 +43,7 @@ const Highlight: React.FC<{
                 {word}
               </mark>
             ) : (
-              word
+              <span id={index.toString()}>{word}</span>
             )}
           </React.Fragment>
         );
