@@ -115,10 +115,23 @@ export default function SelectableText({
           <div className={styles.paragraph} key={index}>
             <p
               onDoubleClick={(e) =>
-                handleDoubleClick(index, Number(e.target.id))
+                handleDoubleClick(
+                  index,
+                  Number((e.target as HTMLSpanElement).id)
+                )
               }
-              onCopy={(e) => handleDoubleClick(index, Number(e.target.id))}
-              onFocus={(e) => handleDoubleClick(index, Number(e.target.id))}
+              onCopy={(e) =>
+                handleDoubleClick(
+                  index,
+                  Number((e.target as HTMLSpanElement).id)
+                )
+              }
+              onFocus={(e) =>
+                handleDoubleClick(
+                  index,
+                  Number((e.target as HTMLSpanElement).id)
+                )
+              }
             >
               <Highlight
                 text={paragraph}
